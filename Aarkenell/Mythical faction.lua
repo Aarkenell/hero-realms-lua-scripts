@@ -5,7 +5,7 @@ require 'timeoutai'
 require 'hardai_2'
 require 'aggressiveai'
 
---[[Mythic Mercs (new 20 card module for market deck
+--[[Mythic Mercs (new 20 card module for market deck - Updated 27.09.2024
 Includes S&R mini-expansion 4 cards plus Parsons the Insider]]
 
 function startOfGameBuffDef()
@@ -36,82 +36,24 @@ local function P1_chooseTheCardsBuff()
  .seq(storyTellEffectWithPortrait("cristov_s_recruits", "All of these cards are factionless. Some have the ability to choose a faction. Others come with different, abilities."))
  .seq(storyTellEffectWithPortrait("cristov_s_recruits", "As mercenaries, many of these champions will require payment each turn if you want to benefit from the full extent of their abilities."))
  .seq(leftStoryTellEffectWithPortrait("ambushers", "As Player 1, you also have the option to play with the Sparks & Rec mini-expansion. This adds another 5 custom champions to the market deck."))
- .seq(leftStoryTellEffectWithPortrait("ambushers", "You can make that choice now."))
- .seq(pushChoiceEffect(
-                                {
-                                    choices = {
-                                        {
-                                            effect = nullEffect(),
-                                            layout = layoutCard(
-                                                {
-                                                    title = "Mythic Mercs",
-                                                    art = "icons/thief_sleight_of_hand",
-                                                    xmlText=[[
-													
-<vlayout>
-    <hlayout flexibleheight="1.8">
-
-        <vlayout flexiblewidth="7">
-            <box flexibleheight="2">
-                <tmpro text="Play with
-Mythic Mercs only." fontsize="24" />
-            </box>
-        </vlayout>
-    </hlayout>
-
-    <hlayout flexibleheight="1">
-
-        <box flexiblewidth="7">
-            <tmpro text="Adds 20 cards to the Market Deck." fontsize="16" fontstyle="italic" />
-        </box>
-    </hlayout>
+ .seq(pushChoiceEffect({
+							choices = {
+								{
+                                effect = nullEffect(),
+                                layout = createLayout({
+									name = "Return to Select Card Packs",
+									art = "avatars/ambushers",
+                                    frame = "frames/Treasure_CardFrame",
+                                    xmlText = [[
+<vlayout  forceheight="true">
+<tmpro text="Select 'Undo' to return to top menu, then choose
+'Pick Packs and Play'." fontsize="28" />
 </vlayout>
-													]]
-                                                }
-                                            ),
-                                            tags = {}
-                                        },
-                                        {
-                                            effect = createCardEffect(mythic_mercs_ee_parsons_carddef(), tradeDeckLoc)
-													.seq(createCardEffect(mythic_mercs_ee_scrapforks_carddef(), tradeDeckLoc))
-													.seq(createCardEffect(mythic_mercs_ee_dblducks_carddef(), tradeDeckLoc))
-													.seq(createCardEffect(mythic_mercs_ee_stigmalingpa_carddef(), tradeDeckLoc))
-													.seq(createCardEffect(mythic_mercs_ee_agent_th_carddef(), tradeDeckLoc))
-													.seq(moveTarget(tradeDeckLoc).apply(selectLoc(centerRowLoc)))
-													.seq(shuffleTradeDeckEffect())
-													.seq(refillMarketEffect(const(0)).seq(refillMarketEffect(const(1))).seq(refillMarketEffect(const(2))).seq(refillMarketEffect(const(3))).seq(refillMarketEffect(const(4)))),
-													
-                                            layout = layoutCard(
-                                                {
-                                                    title = "Add S&R crew",
-                                                    art = "art/T_All_Heroes",
-                                                    xmlText=[[
-<vlayout>
-    <hlayout flexibleheight="1.8">
-
-        <vlayout flexiblewidth="7">
-            <box flexibleheight="2">
-                <tmpro text="Also add the Sparks and Rec mini-expansion." fontsize="24" />
-            </box>
-        </vlayout>
-    </hlayout>
-
-    <hlayout flexibleheight="1">
-
-        <box flexiblewidth="7">
-            <tmpro text="Adds 5 more champions
-to the Market Deck." fontsize="16" fontstyle="italic" />
-        </box>
-    </hlayout>
-</vlayout>
-													]]
-                                                }
-                                            ),
-                                                                                    }
-                                    }
-                                }
-                        )
-		),
+                                    ]],
+                                }),
+                            
+                            },
+							}})),
  
  effectSecond = pushChoiceEffect(
                                 {
@@ -228,7 +170,23 @@ local function P2_chooseInfoBuff()
  .seq(storyTellEffectWithPortrait("cristov_s_recruits", "All of these cards are factionless. Some have the ability to choose a faction. Others come with different, abilities."))
  .seq(storyTellEffectWithPortrait("cristov_s_recruits", "As mercenaries, many of these champions will require payment each turn if you want to benefit from the full extent of their abilities."))
  .seq(leftStoryTellEffectWithPortrait("ambushers", "Player 1 also has the option to decide to add in the Sparks & Rec mini-expansion. This adds another 5 custom champions to the market deck."))
- .seq(leftStoryTellEffectWithPortrait("ambushers", "Now, let's get playing.")),
+.seq(pushChoiceEffect({
+							choices = {
+								{
+                                effect = nullEffect(),
+                                layout = createLayout({
+									name = "Return to Select Card Packs",
+									art = "avatars/ambushers",
+                                    frame = "frames/Treasure_CardFrame",
+                                    xmlText = [[
+<vlayout  forceheight="true">
+<tmpro text="Select 'Undo' to return to top menu, then choose 'Play'." fontsize="28" />
+</vlayout>
+                                    ]],
+                                }),
+                            
+                            },
+							}})),
  
  effectSecond = nullEffect(),
 
@@ -325,7 +283,7 @@ function setupGame(g)
 		mythic_exp_shapeshift_carddef(),
 		mythic_exp_troll_merc_carddef(),
 		mythic_exp_basilisks_gaze_carddef(),
-		mythic_exp_golem_for_hire_carddef(),
+		mythic_exp_coin_operated_golem_carddef(),
 		mythic_mercs_ee_scrapforks_carddef(),
 		mythic_mercs_ee_dblducks_carddef(),
 		mythic_mercs_ee_parsons_carddef(),
@@ -339,12 +297,12 @@ function setupGame(g)
 	})
 
     standardSetup(g, {
-        description = "Mythic creatures - 20 extra market cards. (13 unique new cards.) Created by Aarkenell.",
+        description = "Mythic Mercenaries - 20 extra market cards. (13 unique new cards.) Plus S&R mini-expansion (5 new cards). Created by Aarkenell. Updated 27.09.2024",
         playerOrder = { plid1, plid2 },
         ai = ai.CreateKillSwitchAi(createAggressiveAI(),  createHardAi2()),
         timeoutAi = createTimeoutAi(),
         opponents = { { plid1, plid2 } }, 
-		centerRow = {}, 
+		centerRow = {	"scrapforks", "stigmalingpa", "dblducks", "agent_th" }, 
 		tradeDeckExceptions = {
             -- here we set which cards populate market deck
             { qty=3, cardId="fairy_base" },
@@ -358,8 +316,8 @@ function setupGame(g)
 			{ qty=1, cardId="wyvern" },
 			{ qty=1, cardId="shapeshift" },
 			{ qty=1, cardId="troll_merc" },
-			{ qty=0, cardId="basilisks_gaze" },
-			{ qty=1, cardId="golem_for_hire" }
+			{ qty=1, cardId="basilisks_gaze" },
+			{ qty=1, cardId="coin_operated_golem" }
         },
         players = {
             {
@@ -390,7 +348,6 @@ function setupGame(g)
                         drawCardsCountAtTurnEndDef(5),
                         discardCardsAtTurnStartDef(),
 						fatigueCount(40, 1, "FatigueP2"),
-						startOfGameBuffDef(),
 						loseGameBuffDef(),
 						P2_chooseInfoBuff()
 					}
@@ -459,7 +416,6 @@ function mythic_exp_fairy_base_carddef()
 					cost = 1,
                     xmlText=[[
 					<vlayout>
-
 <box flexibleheight="2">
         <tmpro text="When played, and at the start of your turn, randomly select:
 " fontsize="18"/>
@@ -471,9 +427,6 @@ function mythic_exp_fairy_base_carddef()
 &lt;size=60%&gt; or No Effect" fontsize="46" />
         </box>
     </hlayout>
-
-
-
 </vlayout>
 					]],
                     health = 2,
@@ -1893,7 +1846,7 @@ function mythic_exp_werewolf_merc2_carddef()
             layout = createLayout(
                 {
                     name = "Werewolf Mercenary",
-                    art = "art/T_Wolf_Form",
+                    art = "art/epicart/lycomancy",
                     frame = "frames/Treasure_CardFrame",
 					cost = 4,
                     xmlText=[[
@@ -1932,7 +1885,7 @@ function mythic_exp_stone_skin_carddef()
             name = "Stone skin",
 			types = {actionType},
 			cardTypeLabel = "Action",
-			f
+			playLocation = castPloc,
             acquireCost = 5,
             abilities = {
                 createAbility(
@@ -1944,11 +1897,10 @@ function mythic_exp_stone_skin_carddef()
 
 effect = pushChoiceEffectWithTitle({
                         choices = {
-							--1st option
-							{
-                               effect = gainToughnessEffect(5).seq(gainHealthEffect(5)),
-											
-                                            layout = layoutCard(
+							--No champ option
+                            {
+                               effect = gainToughnessEffect(5),
+							   layout = layoutCard(
                                                 {
                                                     title = "Stone Skin",
                                                     art = "art/T_Granite_Smasher",
@@ -1956,9 +1908,7 @@ effect = pushChoiceEffectWithTitle({
                                                     xmlText=[[
 <vlayout>
     <box flexibleheight="1">
-        <tmpro text="&lt;size=60%&gt;Gain 5 Toughness
-
-&lt;/size&gt;{health_5}" fontsize="40"/>
+        <tmpro text="Gain 5 Toughness." fontsize="20"/>
     </box>
 </vlayout> 
 					]]
@@ -1975,18 +1925,15 @@ effect = pushChoiceEffectWithTitle({
                                     xmlText = [[
                                         <vlayout>
     <box flexibleheight="1">
-        <tmpro text="Give +3{shield} to a
-factionless champion.
-
-Draw a card." fontsize="20"/>
+        <tmpro text="Gain 5 Toughness." fontsize="20"/>
     </box>
 </vlayout> 
                                     ]],
                                 }),
-                                tags = {  }
+                                tags = {  },
 								
-                            ,
-							--2nd option
+							
+							--1st option
                             {
                                effect = pushTargetedEffect(
 															{
@@ -2037,7 +1984,7 @@ Draw a card." fontsize="20"/>
                                 tags = {  }
 								
                             ,
-							--3rd option
+							--2nd option
                             {
                                 effect = pushChoiceEffectWithTitle({
 											choices = {
@@ -2062,10 +2009,9 @@ Draw a card." fontsize="20"/>
                                                     xmlText=[[
 <vlayout>
     <box flexibleheight="1">
-        <tmpro text="Give +3{shield} to an
-Imperial champion.
+        <tmpro text="Give +3{shield} to a {imperial} champion.
 
-Prepare that champion" fontsize="20"/>
+Prepare that champion." fontsize="20"/>
     </box>
 </vlayout> 
 					]]
@@ -2094,10 +2040,9 @@ Prepare that champion" fontsize="20"/>
                                                     xmlText=[[
 <vlayout>
     <box flexibleheight="1">
-        <tmpro text="Give +3{shield} to a
-Wild champion.
+        <tmpro text="Give +3{shield} to a {wild} champion.
 
-{combat_3}" fontsize="20"/>
+&lt;size=200%&gt;{combat_3}" fontsize="20"/>
     </box>
 </vlayout> 
 					]]
@@ -2136,8 +2081,7 @@ Wild champion.
                                                     xmlText=[[
 <vlayout>
     <box flexibleheight="1">
-        <tmpro text="Give +3{shield} to a
-Guild champion.
+        <tmpro text="Give +3{shield} to a {guild} champion.
 
 Put a card from your discard on top of your deck." fontsize="20"/>
     </box>
@@ -2178,10 +2122,9 @@ Put a card from your discard on top of your deck." fontsize="20"/>
                                                     xmlText=[[
 <vlayout>
     <box flexibleheight="1">
-        <tmpro text="Give +3{shield} to a
-Necros champion.
+        <tmpro text="Give +3{shield} to a {necro} champion.
 
-Sacrifice a card from your hand or discard pile." fontsize="20"/>
+You may sacrifice a card from your hand or discard pile." fontsize="20"/>
     </box>
 </vlayout> 
 					]]
@@ -2216,8 +2159,7 @@ Sacrifice a card from your hand or discard pile." fontsize="20"/>
                 }
             ),
                                 tags = { addFactionTag }
-                            },
-                         					
+                            },			
 							
                         },
 						upperTitle = "Give a champion +3 defense until it leaves play.",
@@ -2233,18 +2175,20 @@ Sacrifice a card from your hand or discard pile." fontsize="20"/>
                     frame = "frames/Treasure_CardFrame",
 					cost = 5,
                     xmlText=[[
+
 <vlayout>
     <box flexibleheight="1">
-        <tmpro text="Gain 5 Toughness and {health_5} or
-Give a champion +3{shield}
+        <tmpro text="Give a champion +3{shield}
 until it leaves play. If it is:
-Factionless: Draw a card.
+Factionless: Draw 1.
 {imperial} Prepare that champion.
 {wild} {combat_3}
-{guild} Top-deck one card from your discard.
-{necro} Sacrifice 1 from your hand or discard." fontsize="15"/>
+{guild} Top-deck a card from your discard.
+{necro} Sacrifice 1 from your hand or discard.
+
+Or gain 5 Toughness." fontsize="15"/>
 </box>
-</vlayout>  
+</vlayout> 
 					]],
 
                 }
@@ -2664,12 +2608,12 @@ that cost {gold_4} or less.
     )
 end
 
-function mythic_exp_golem_for_hire_carddef()
+function mythic_exp_coin_operated_golem_carddef()
 
 
     return createChampionDef(
         {
-            id = "golem_for_hire",
+            id = "coin_operated_golem",
             name = "Coin-operated Golem",
 			types = {championType},
             acquireCost = 8,
@@ -2678,16 +2622,16 @@ function mythic_exp_golem_for_hire_carddef()
             abilities = {
                 createAbility(
                     {
-                        id = "golem_for_hire",
+                        id = "coin_operated_golem",
                         trigger = uiTrigger,
                         cost = combineCosts({ expendCost, goldCost(1) }),
-                        activations = singleActivations,
+                        activations = multipleActivations,
                         effect = pushChoiceEffect({
                         choices = {
                             {
                                 effect = gainCombatEffect(7),
                                 layout = createLayout({
-								name = "Golem for Hire",
+								name = "Coin-operated Golem",
 								art = "art/T_Stone_Guardian",
 								frame = "frames/Treasure_CardFrame",
                                     xmlText = [[
@@ -2711,7 +2655,7 @@ function mythic_exp_golem_for_hire_carddef()
 								.seq(addSlotToTarget(createGuardSwitchSlot(true, { startOfOwnerTurnExpiry })).apply(selectSource())),
 
 								layout = createLayout({
-								name = "Golem for Hire",
+								name = "Coin-operated Golem",
 								art = "art/T_Stone_Guardian",
 								frame = "frames/Treasure_CardFrame",
                                     xmlText = [[
@@ -2741,7 +2685,7 @@ until next turn." fontsize="40" flexiblewidth="10" />
             layout = createLayout(
                 {
                     name = "Coin-operated Golem",
-                    art = "art/T_Stone_Guardian",
+                    art = "art/epicart/gareth_s_automaton",
                     frame = "frames/Treasure_CardFrame",
 					cost = 8,
                     xmlText=[[
@@ -2795,7 +2739,7 @@ function mythic_mercs_ee_scrapforks_carddef()
             layout = createLayout(
                 {
                     name = "Scrapforks",
-                    art = "art/T_Fighter_Male",
+                    art = "art/epicart/lord_of_the_arena",
                     frame = "frames/Treasure_CardFrame",
 					cost = 4,
                     xmlText=[[
@@ -2839,9 +2783,10 @@ function mythic_mercs_ee_dblducks_carddef()
                         activations = multipleActivations,
                         effect = gainCombatEffect(4).seq(moveTarget(myRevealPloc).apply(selectLoc(loc(currentPid, deckPloc)).take(2)).seq(noUndoEffect()).seq(promptSplit({
     selector = selectLoc(currentRevealLoc),
-    take = const(2), -- number of cards to take for split
+    take = const(1), -- number of cards to take for split
     sort = const(1), -- number of cards to be sorted for ef2
-    ef1 = moveToTopDeckTarget(true), -- effect to be applied to cards left
+	minTake = const(1), -- number of mandatory cards moved to ef2
+    ef1 = moveToTopDeckTarget(true, 1), -- effect to be applied to cards left
     ef2 = moveToBottomDeckTarget(true, 1), -- effect to be applied to sorted cards
     header = "Gaze into the future", -- prompt header
     description = "Look at the top two cards of your deck. Put one on the top and one on the bottom of your deck.",
@@ -2858,7 +2803,7 @@ function mythic_mercs_ee_dblducks_carddef()
             layout = createLayout(
                 {
                     name = "DblDucks",
-                    art = "art/T_Influence",
+                    art = "art/epicart/banishment",
                     frame = "frames/Treasure_CardFrame",
 					cost = 4,
                     xmlText=[[
@@ -3023,7 +2968,6 @@ You may put a card from your discard pile onto the bottom of your deck" fontsize
     )
 end
 
-
 function mythic_mercs_ee_stigmalingpa_carddef()
     return createChampionDef(
         {
@@ -3056,7 +3000,7 @@ function mythic_mercs_ee_stigmalingpa_carddef()
             layout = createLayout(
                 {
                     name = "Stigmalingpa",
-                    art = "art/T_Wizard_Runic_Robes",
+                    art = "art/epicart/reusable_knowledge",
                     frame = "frames/Treasure_CardFrame",
 					cost = 4,
                     xmlText=[[
@@ -3123,7 +3067,7 @@ function mythic_mercs_ee_agent_th_carddef()
             layout = createLayout(
                 {
                     name = "Agent Teeth Hurting",
-                    art = "art/T_Elven_Curse",
+                    art = "art/epicart/psionic_assault",
                     frame = "frames/Treasure_CardFrame",
 					cost = 4,
                     xmlText=[[
@@ -3261,6 +3205,7 @@ function cat_familiar_token_carddef()
     )
 end
 
+
 function kit_cat_token_carddef()
 --This is a token champion, that self-sacrifices when it leaves play
     return createChampionDef(
@@ -3280,7 +3225,6 @@ function kit_cat_token_carddef()
                         cost = expendCost,
                         activations = multipleActivations,
                         effect = hitOpponentEffect(2)
-						
                     }
                 )
             ,
@@ -3298,7 +3242,7 @@ function kit_cat_token_carddef()
             layout = createLayout(
                 {
                     name = "Kit Cat",
-                    art = "art/treasures/T_Wise_Cat_Familiar",
+                    art = "art/treasures/wizard_wizened_familiar",
                     frame = "frames/Treasure_CardFrame",
                     xmlText=[[
 					<vlayout>
@@ -3357,7 +3301,7 @@ function chunky_cat_token_carddef()
             layout = createLayout(
                 {
                     name = "Kit Cat Chunky",
-                    art = "art/treasures/T_Fat_Cat_Familiar",
+                    art = "art/treasures/wizard_content_familiar",
                     frame = "frames/Treasure_CardFrame",
                     xmlText=[[
 					<vlayout>
@@ -3378,7 +3322,6 @@ function chunky_cat_token_carddef()
         }
     )
 end
-
 
 function big_bad_kitty_token_carddef()
 --This is a token champion, that self-sacrifices when it leaves play
@@ -3476,7 +3419,7 @@ function surprise_dragon_token_carddef()
             layout = createLayout(
                 {
                     name = "Surprise Dragon",
-                    art = "art/T_Arkus_Imperial_Dragon",
+                    art = "art/epicart/dragonling",
                     frame = "frames/Treasure_CardFrame",
                     xmlText=[[
 					<vlayout>
