@@ -12,6 +12,10 @@ Quickstart (cards move direct to sacrificePloc)
 Succubus self-sac fixed
 Demonic Leech rework - now explodes once at 6 health]]
 
+--[[
+Updates19.04.2025 - art and cardframe decapitalisation post WWG patch
+]]
+
 -- Game start --
 local function chooseStart()
     return cardChoiceSelectorEffect({
@@ -43,20 +47,21 @@ local function chooseStart()
 			.seq(createCardEffect(choose_brewmaster_carddef(), loc(currentPid, asidePloc)))
 			.seq(createCardEffect(choose_thandarlorian_carddef(), loc(currentPid, asidePloc)))
 			.seq(createCardEffect(choose_terramancer_carddef(), loc(currentPid, asidePloc)))
-			.seq(createCardEffect(choose_pyromancer_carddef(), loc(currentPid, asidePloc)))
-			.seq(createCardEffect(choose_cryomancer_carddef(), loc(currentPid, asidePloc)))
 			.seq(createCardEffect(choose_apothecary_carddef(), loc(currentPid, asidePloc)))]]
 			.seq(createCardEffect(choose_demonologist_carddef(), loc(currentPid, asidePloc)))
 			.seq(createCardEffect(choose_pyromancer_carddef(), loc(currentPid, asidePloc)))
+			.seq(createCardEffect(choose_cryomancer_carddef(), loc(currentPid, asidePloc)))
 						.seq(moveTarget(handPloc).apply(selectLoc(loc(currentPid, asidePloc))))
-			.seq(waitForClickEffect("Please play the card corresponding to the class you wish to play.", "")),
+			.seq(waitForClickEffect("Please play the card corresponding to the class you wish to play.", ""))
+			.seq(waitForClickEffect("Please note: Cryomancer abilities are still in development.", ""))
+			.seq(waitForClickEffect("If both players choose Cryomancer AND the same abilities and activate them at the same time the game will crash.", "")),
         
             layout = createLayout({
             name = "Pick a custom class",
-            art = "art/T_Storm_Siregar",
+            art = "art/t_storm_siregar",
             xmlText=[[<vlayout>
 <hlayout flexiblewidth="1">
-<text text="Choose 1 of 2
+<text text="Choose 1 of 3
 level 12 Custom Characters to play." fontsize="26"/>
 </hlayout>
 </vlayout>
@@ -79,7 +84,7 @@ level 12 Custom Characters to play." fontsize="26"/>
 											layout = createLayout(
                 {
                     name = "Yes",
-                    art = "art/treasures/T_cleric_elixir_green",
+                    art = "art/treasures/t_cleric_elixir_green",
                     frame = "frames/necromancer_frames/necromancer_item_cardframe",
                     xmlText=[[
 					<vlayout>
@@ -100,7 +105,7 @@ Start playing." fontsize="30" flexiblewidth="1" />
                                             layout = createLayout(
                 {
                     name = "No",
-                    art = "art/treasures/T_cleric_elixir_blue_purple",
+                    art = "art/treasures/t_cleric_elixir_blue_purple",
                     frame = "frames/necromancer_frames/necromancer_item_cardframe",
                     xmlText=[[
 					<vlayout>
@@ -121,7 +126,7 @@ Start playing." fontsize="30" flexiblewidth="1" />
 					}),
                                             layout = createLayout({
             name = "Selected class",
-            art = "art/T_All_Heroes",
+            art = "art/t_all_heroes",
             xmlText=[[
 			<vlayout>
 <hlayout flexiblewidth="1">
@@ -148,14 +153,13 @@ Start playing." fontsize="30" flexiblewidth="1" />
         
             layout = createLayout({
             name = "Updates to this mod",
-            art = "art/T_fighter_sharpening_stone",
+            art = "art/t_fighter_sharpening_stone",
             xmlText=[[<vlayout>
 <hlayout flexiblewidth="1">
-<text text="SnR Enjoyer class added
-Terramancer class added 04.04.24 - reworked 07.04.24
-Demonologist class updates
-SnR custom cards removed from market deck (Parson’s the Insider Promo card remains)
-Demon Hunter custom card added to market deck
+<text text="
+06.03.25 - Cryomancer added
+
+
 " fontsize="16"/>
 </hlayout>
 </vlayout>			
@@ -168,17 +172,19 @@ Demon Hunter custom card added to market deck
                                            effect = nullEffect(),
                                             layout = createLayout({
             name = "Other mods to try",
-            art = "art/treasures/T_spyglass",
+            art = "art/treasures/t_spyglass",
             xmlText=[[
 			<vlayout>
 <hlayout flexiblewidth="1">
 <text text="New mods by community members:
 
+&lt;size=100%&gt;Dual Class &lt;size=70%&gt;- by Aarkenell
+&lt;size=100%&gt;Splintered Thandar &lt;size=70%&gt;- by Aarkenell
 &lt;size=100%&gt;Industrialisation &lt;size=70%&gt;- by Userkaffe
 &lt;size=100%&gt;Mythic Mercenaries &lt;size=70%&gt;- by Aarkenell
 &lt;size=100%&gt;Sudden Death &lt;size=70%&gt;- by WardenSlayer
 
-&lt;size=90%&gt;Look out for these games in the custom lobby, or join the RealmsRising Discord to request custom challenges." fontsize="16"/>
+&lt;size=90%&gt;Look out for these games in the custom lobby, or join the RealmsRising Discord to request custom challenges." fontsize="14"/>
 </hlayout>
 </vlayout>
 			]] }),
@@ -187,26 +193,26 @@ Demon Hunter custom card added to market deck
 										  
 								-- 1.2c choice - Community news
 										{
-                                           effect = storyTellEffectWithPortrait("ogre", "Hi! I’m Rob d’Ogrety, CEO of ‘Why’s Wizard Games?’")
-				 .seq(leftStoryTellEffectWithPortrait("inquisition", "And I’m Dwarfin Kastle – creator of the award-winning deckbuilding game about growing trees in space – Star Elms."))
-				 .seq(storyTellEffectWithPortrait("ogre", "We just wanted to take a moment to say how much we love the community that has sprung up around Hero Realms…"))
-				 .seq(leftStoryTellEffectWithPortrait("inquisition", "We love you!"))
-				 .seq(storyTellEffectWithPortrait("ogre", " …and how much we love the experiments and new ideas being offered through custom lua scripting."))
-				 .seq(leftStoryTellEffectWithPortrait("inquisition", "Yeah! We love lua!"))
-				 .seq(leftStoryTellEffectWithPortrait("inquisition", "Lua, Lua! Oh baby! Me gotta go! Aye-yi-yi-yi!"))
-				 .seq(storyTellEffectWithPortrait("ogre", "<cough> Thanks DK."))
-				 .seq(storyTellEffectWithPortrait("ogre", "Be sure to join the Realms Rising server on Discord to share your feedback on this mod and to discover new custom games to play."))
-				 .seq(storyTellEffectWithPortrait("ogre", "And listen to the Sparks and Recreation podcast for information on Community events, meta-analysis, and everything Hero Realms."))
-				 .seq(storyTellEffectWithPortrait("ogre", "Or jump over to RealmsRising.com for in-depth articles on strategy and gameplay."))
+                                           effect = storyTellEffectWithPortrait("ogre_fighter_male_02", "Hi! I’m Rob d’Ogrety, CEO of ‘Why’s Wizard Games?’")
+				 .seq(leftStoryTellEffectWithPortrait("dwarf_fighter_male_02", "And I’m Dwarfin Kastle – creator of the award-winning deckbuilding game about growing trees in space – Star Elms."))
+				 .seq(storyTellEffectWithPortrait("ogre_fighter_male_02", "We just wanted to take a moment to say how much we love the community that has sprung up around Hero Realms…"))
+				 .seq(leftStoryTellEffectWithPortrait("dwarf_fighter_male_02", "We love you!"))
+				 .seq(storyTellEffectWithPortrait("ogre_fighter_male_02", " …and how much we love the experiments and new ideas being offered through custom lua scripting."))
+				 .seq(leftStoryTellEffectWithPortrait("dwarf_fighter_male_02", "Yeah! We love lua!"))
+				 .seq(leftStoryTellEffectWithPortrait("dwarf_fighter_male_02", "Lua, Lua! Oh baby! We gotta code! Aye-yi-yi-yi!"))
+				 .seq(storyTellEffectWithPortrait("ogre_fighter_male_02", "<cough> Thanks DK."))
+				 .seq(storyTellEffectWithPortrait("ogre_fighter_male_02", "Be sure to join the Realms Rising server on Discord to share your feedback on this mod and to discover new custom games to play."))
+				 .seq(storyTellEffectWithPortrait("ogre_fighter_male_0", "And listen to the Sparks and Recreation podcast for information on Community events, meta-analysis, and everything Hero Realms."))
+				 .seq(storyTellEffectWithPortrait("ogre_fighter_male_02", "Or jump over to RealmsRising.com for in-depth articles on strategy and gameplay."))
 				 .seq(storyTellEffectWithPortrait("origins_flawless_track", "And if you have ideas for new custom classes or scenarios you’d like to see, drop me, Aarkenell, a message in the Realms Rising Discord."))
-				 .seq(storyTellEffectWithPortrait("ogre", "Whether you join the Realms Rising community or not, we hope you keep enjoying the game and all the custom content from our great community. "))
-				 .seq(storyTellEffectWithPortrait("ogre", "Bye for now."))
-				 .seq(leftStoryTellEffectWithPortrait("inquisition", "Lua, Lua! Oh baby! We gotta go. Bye-yi-yi-yi!"))
+				 .seq(storyTellEffectWithPortrait("ogre_fighter_male_02", "Whether you join the Realms Rising community or not, we hope you keep enjoying the game and all the custom content from our great community."))
+				 .seq(storyTellEffectWithPortrait("ogre_fighter_male_02", "Bye for now."))
+				 .seq(leftStoryTellEffectWithPortrait("dwarf_fighter_male_02", "Lua, Lua! Oh baby! We gotta go. Bye-yi-yi-yi!"))
 				 .seq(storyTellEffectWithPortrait("origins_flawless_track", "Please hit 'Undo' to return to the menu."))
 				 ,
                                             layout = createLayout({
             name = "Community News",
-            art = "art/T_borg_ogre_mercenary",
+            art = "art/t_borg_ogre_mercenary",
             xmlText=[[
 			<vlayout>
 <hlayout flexiblewidth="1">
@@ -227,7 +233,7 @@ Demon Hunter custom card added to market deck
 -- 1.1 layout
         layoutFirst = createLayout({
             name = "To Battle!",
-            art = "art/T_Unify_Apsara",
+            art = "art/t_unify_apsara",
             xmlText=[[<vlayout>
 <hlayout flexiblewidth="1">
 <text text="Choose your class and start the game." fontsize="26"/>
@@ -240,7 +246,7 @@ Demon Hunter custom card added to market deck
 -- 1.2 layout
         layoutSecond = createLayout({
             name = "Updates & Info",
-            art = "art/treasures/T_Magic_Scroll_Souveraine",
+            art = "art/treasures/t_magic_scroll_souveraine",
             xmlText=[[
 			<vlayout>
 <hlayout flexiblewidth="1">
@@ -306,7 +312,7 @@ function choose_demonologist_carddef()
                                             layout = createLayout(
                 {
                     name = "Yes",
-                    art = "art/treasures/T_cleric_elixir_green",
+                    art = "art/treasures/t_cleric_elixir_green",
                     frame = "frames/necromancer_frames/necromancer_item_cardframe",
                     xmlText=[[
 					<vlayout>
@@ -327,7 +333,7 @@ Start playing." fontsize="30" flexiblewidth="1" />
                                             layout = createLayout(
                 {
                     name = "No",
-                    art = "art/treasures/T_cleric_elixir_blue_purple",
+                    art = "art/treasures/t_cleric_elixir_blue_purple",
                     frame = "frames/necromancer_frames/necromancer_item_cardframe",
                     xmlText=[[
 					<vlayout>
@@ -376,7 +382,7 @@ Start playing." fontsize="30" flexiblewidth="1" />
                                             layout = createLayout(
                 {
                     name = "Summon Demon Minion",
-                    art = "icons/The_Summoning",
+                    art = "icons/the_summoning",
                     frame = "frames/necromancer_frames/necromancer_item_cardframe",
                     xmlText=[[
 					<vlayout>
@@ -446,13 +452,13 @@ Start playing." fontsize="30" flexiblewidth="1" />
                     isGuard = false,
 					xmlText=[[
 					<vlayout>
-    <hlayout flexibleheight="0">
-            <tmpro text="{expend}" fontsize="36" flexiblewidth="2"/>
-            <icon text="{combat_2}" fontsize="36" flexiblewidth="10" />
+    <hlayout flexibleheight="0.2">
+            <tmpro text="{expend}" fontsize="40" flexiblewidth="2"/>
+            <icon text="{combat_2}" fontsize="40" flexiblewidth="10" />
     </hlayout>
 <divider/>
-    <hlayout flexibleheight="12">
-            <tmpro text="Once per turn, you may sacrifice a non-minion champion in your discard pile to sprout a spike equal to its cost." fontsize="18" flexiblewidth="10" />
+    <hlayout flexibleheight="7">
+            <tmpro text="Once per turn, you may sacrifice a champion in your discard pile to sprout a spike equal to its cost." fontsize="20" flexiblewidth="10" />
     </hlayout> 
 </vlayout>
 					]]
@@ -570,7 +576,7 @@ into play.
                                             layout = createLayout(
                 {
                     name = "Demonic Amulet",
-                    art = "art/T_wizard_silverskull_amulet",
+                    art = "art/t_wizard_silverskull_amulet",
                     frame = "frames/necromancer_frames/necromancer_item_cardframe",
                     xmlText=[[
 					<vlayout>
@@ -594,7 +600,7 @@ into play.
                                             layout = createLayout(
                 {
                     name = "Summoner's Robes",
-                    art = "art/T_wizard_runic_robes",
+                    art = "art/t_wizard_runic_robes",
                     frame = "frames/necromancer_frames/necromancer_item_cardframe",
                     xmlText=[[
 					<vlayout>
@@ -691,8 +697,8 @@ into play.
                                             layout = createLayout(
                 {
                     name = "Grimoire",
-                    art = "art/T_Evangelize",
-                    frame = "frames/Wizard_CardFrame",
+                    art = "art/t_evangelize",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 <vlayout>
     <hlayout flexibleheight="2">
@@ -719,8 +725,8 @@ Gain {health_1} for each demon minion already in play." fontsize="24" />
                                             layout = createLayout(
                 {
                     name = "Scroll of Summoning",
-                    art = "art/treasures/T_Magic_Scroll_Souveraine",
-                    frame = "frames/Wizard_CardFrame",
+                    art = "art/treasures/t_magic_scroll_souveraine",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 					<vlayout>
     <hlayout flexibleheight="2">
@@ -866,7 +872,7 @@ Randomly summon 1 of 3 demon tokens into play." fontsize="20" />
                 {
                     name = "Devourer",
                     art = "art/epicart/thrasher_demon",
-                    frame = "frames/Wizard_CardFrame",
+                    frame = "frames/wizard_cardframe",
                     xmlText = [[
 <vlayout>
     <hlayout flexibleheight="3">
@@ -1002,15 +1008,20 @@ Randomly summon 1 of 3 demon tokens into play." fontsize="20" />
         layout = createLayout({
             name = "Demonologist",
             art = "art/epicart/dirge_of_scara",
-			frame = "frames/Coop_Campaign_CardFrame",
+			frame = "frames/coop_campaign_cardframe",
             xmlText=[[
 			<vlayout>
-    <box flexibleheight="12">
-        <tmpro text="Randomly choose a Custom Class" fontsize="26"/>
+    <box flexibleheight="2">
+        <tmpro text="Play as a level 12
+Demonologist" fontsize="26"/>
     </box>
-    <box flexibleheight="8">
+    <box flexibleheight="1">
         <tmpro text="
-Real Heroes dance with fate." fontsize="20" fontstyle="italic"/>
+- Class by Aarkenell -" fontsize="22" fontstyle="italic"/>
+    </box>
+
+<box flexibleheight="1">
+        <tmpro text="- Created 12.04.2024-" fontsize="14" fontstyle="italic"/>
     </box>
 </vlayout>
 
@@ -1070,8 +1081,8 @@ function choose_pyromancer_carddef()
                                             layout = createLayout(
                 {
                     name = "Yes",
-                    art = "art/treasures/T_cleric_elixir_green",
-                    frame = "frames/Wizard_CardFrame",
+                    art = "art/treasures/t_cleric_elixir_green",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 					<vlayout>
    <hlayout flexibleheight="3">
@@ -1091,8 +1102,8 @@ Start playing." fontsize="30" flexiblewidth="1" />
                                             layout = createLayout(
                 {
                     name = "No",
-                    art = "art/treasures/T_cleric_elixir_blue_purple",
-                    frame = "frames/Wizard_CardFrame",
+                    art = "art/treasures/t_cleric_elixir_blue_purple",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 					<vlayout>
    <hlayout flexibleheight="3">
@@ -1120,7 +1131,7 @@ Start playing." fontsize="30" flexiblewidth="1" />
                 {
                     name = "Additional Health",
                     art = "avatars/summoner",
-                    frame = "frames/Wizard_CardFrame",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 <vlayout>
     <box flexibleheight="9">
@@ -1139,8 +1150,8 @@ Start playing." fontsize="30" flexiblewidth="1" />
                                             layout = createLayout(
                 {
                     name = "Play with fire",
-                    art = "art/T_Spreading_Sparks",
-                    frame = "frames/Wizard_CardFrame",
+                    art = "art/t_spreading_sparks",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 					<vlayout>
     <hlayout flexibleheight="2">
@@ -1175,7 +1186,7 @@ Start playing." fontsize="30" flexiblewidth="1" />
                 {
                     name = "Patronage",
                     art = "art/treasures/thief_brillant_ruby",
-                    frame = "frames/Wizard_CardFrame",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 <vlayout>
     <box flexibleheight="9">
@@ -1203,7 +1214,7 @@ Start playing." fontsize="30" flexiblewidth="1" />
                 {
                     name = "Volatile Chemicals",
                     art = "art/treasures/wizard_adept_s_components",
-                    frame = "frames/Wizard_CardFrame",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 					<vlayout>
 <hlayout flexibleheight="1">
@@ -1235,8 +1246,8 @@ Start playing." fontsize="30" flexiblewidth="1" />
 											layout = createLayout(
                 {
                     name = "Phoenix Fury",
-					art = "art/T_pillar_of_fire",
-					frame = "frames/Wizard_CardFrame",
+					art = "art/t_pillar_of_fire",
+					frame = "frames/wizard_cardframe",
                     xmlText=[[
 					<vlayout>
             <hlayout flexibleheight="2">
@@ -1270,7 +1281,7 @@ and increases with each use of your skill." fontsize="32" flexibleheight="3"/>
                 {
                     name = "Phoenix Flames",
 					art = "art/epicart/flames_of_furios",
-					frame = "frames/Wizard_CardFrame",
+					frame = "frames/wizard_cardframe",
                     xmlText=[[
 					<vlayout>
             <hlayout flexibleheight="2">
@@ -1303,8 +1314,8 @@ and increases with each use of your skill." fontsize="32" flexibleheight="3"/>
 											layout = createLayout(
                 {
                     name = "Spirit of the Phoenix",
-					art = "art/T_darian_war_mage",
-					frame = "frames/Wizard_CardFrame",
+					art = "art/t_darian_war_mage",
+					frame = "frames/wizard_cardframe",
                     xmlText=[[
 					<vlayout>
             <hlayout flexibleheight="2">
@@ -1341,8 +1352,8 @@ and increases with each use of your skill." fontsize="32" flexibleheight="3"/>
                                             layout = createLayout(
                 {
                     name = "Fire Gem Amulet",
-                    art = "art/T_fire_gem",
-                    frame = "frames/Wizard_CardFrame",
+                    art = "art/t_fire_gem",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 					<vlayout>
     <hlayout flexibleheight="1">
@@ -1367,7 +1378,7 @@ Otherwise give a Fire Bird +1{shield} until it leaves play." fontsize="19" />
                 {
                     name = "Flame Hood",
                     art = "avatars/summoner",
-                    frame = "frames/Wizard_CardFrame",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 					<vlayout>
     <hlayout flexibleheight="1">
@@ -1407,7 +1418,7 @@ If you have used your Ability, gain {combat_2}." fontsize="24" />
                 {
                     name = "Phoenix Frenzy",
 					art = "art/epicart/fireball",
-					frame = "frames/Wizard_CardFrame",
+					frame = "frames/wizard_cardframe",
                     xmlText=[[
 					<vlayout>
             <hlayout flexibleheight="2">
@@ -1440,7 +1451,7 @@ and increases with each use of your skill." fontsize="32" flexibleheight="3"/>
                 {
 					name = "Phoenix Flare",
                     art = "art/epicart/ascendant_pyromancer",
-                    frame = "frames/Wizard_CardFrame",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 					<vlayout>
             <hlayout flexibleheight="2">
@@ -1477,8 +1488,8 @@ and increases with each use of your skill." fontsize="32" flexibleheight="3"/>
                                             layout = createLayout(
                 {
                     name = "Hearth",
-                    art = "art/T_Blistering_Blaze",
-                    frame = "frames/Wizard_CardFrame",
+                    art = "art/t_blistering_blaze",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 <vlayout>
 <hlayout flexibleheight="1">
@@ -1500,7 +1511,7 @@ and increases with each use of your skill." fontsize="32" flexibleheight="3"/>
                 {
                     name = "Fire Elemental",
                     art = "art/epicart/fire_spirit",
-                    frame = "frames/Wizard_CardFrame",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 					<vlayout>
     <hlayout flexibleheight="3">
@@ -1539,7 +1550,7 @@ and increases with each use of your skill." fontsize="32" flexibleheight="3"/>
                 {
                     name = "Reckless Research",
                     art = "art/epicart/erratic_research",
-                    frame = "frames/Wizard_CardFrame",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 					<vlayout>
             <hlayout flexibleheight="0.7">
@@ -1573,7 +1584,7 @@ Add 3-7{combat} to your Ability. Increase the value of this skill by {combat_1} 
                 {
 					name = "Obsessive Research",
                     art = "art/epicart/mystic_researcher",
-                    frame = "frames/Wizard_CardFrame",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 					<vlayout>
             <hlayout flexibleheight="0.7">
@@ -1606,7 +1617,7 @@ Draw 1. Put a card on the top of your deck." fontsize="19" flexibleheight="0.5"/
                 {
 					name = "Focussed Research",
                     art = "art/epicart/lesson_learned",
-                    frame = "frames/Wizard_CardFrame",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 					<vlayout>
             <hlayout flexibleheight="0.7">
@@ -1644,7 +1655,7 @@ Draw 1. Put a card on the top of your deck." fontsize="19" flexibleheight="0.5"/
                 {
                     name = "Explode",
                     art = "art/epicart/zaltessa_s_fire",
-                    frame = "frames/Wizard_CardFrame",
+                    frame = "frames/wizard_cardframe",
                     xmlText = [[
 <vlayout>
     <box flexibleheight="1">
@@ -1668,7 +1679,7 @@ Draw 1. Put a card on the top of your deck." fontsize="19" flexibleheight="0.5"/
                 {
                     name = "Incinerate",
                     art = "art/epicart/flame_strike",
-                    frame = "frames/Wizard_CardFrame",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 					<vlayout>
     <box flexibleheight="1">
@@ -1705,7 +1716,7 @@ Draw 1. Put a card on the top of your deck." fontsize="19" flexibleheight="0.5"/
                 {
                     name = "Compulsive Research",
                     art = "art/epicart/frantic_digging",
-                    frame = "frames/Wizard_CardFrame",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 					<vlayout>
             <hlayout flexibleheight="1">
@@ -1734,7 +1745,7 @@ Draw 1. Put a card on the top of your deck." fontsize="19" flexibleheight="0.5"/
                 {
 					name = "Considered Research",
                     art = "art/epicart/forbidden_research",
-                    frame = "frames/Wizard_CardFrame",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 					<vlayout>
             <hlayout flexibleheight="0.7">
@@ -1767,8 +1778,8 @@ Draw 1. Put a card on the top of your deck." fontsize="19" flexibleheight="0.5"/
         },
         layout = createLayout({
             name = "Pyromancer",
-            art = "art/T_Blistering_Blaze",
-			frame = "frames/Coop_Campaign_CardFrame",
+            art = "art/t_blistering_blaze",
+			frame = "frames/coop_campaign_cardframe",
             xmlText=[[
 <vlayout>
     <box flexibleheight="2">
@@ -1784,6 +1795,696 @@ Pyromancer" fontsize="26"/>
         <tmpro text="- Created.25.2024-" fontsize="14" fontstyle="italic"/>
     </box>
 </vlayout>
+			]]
+			}),
+        })
+	end
+
+function choose_cryomancer_carddef()
+    return createDef({
+        id="choose_cryomancer",
+        name="Choose the Cryomancer",
+        types={noStealType, itemType},
+		cardTypeLabel = "Item",
+		playLocation = castPloc,
+        acquireCost=0,
+        abilities = {
+            createAbility({
+                id="choose_cryomancer",
+                trigger= onPlayTrigger,
+				playAllType = noPlayPlayType,
+                effect = sacrificeTarget().apply(selectLoc(loc(currentPid, skillsPloc)))
+			.seq(moveTarget(sacrificePloc).apply(selectLoc(loc(currentPid, handPloc)))) --here--
+			.seq(setPlayerNameEffect("Cryomancer", currentPid))
+			.seq(setPlayerAvatarEffect("rayla__endweaver_flipped", currentPid))
+			.seq(gainMaxHealthEffect(currentPid, const(52).add(getPlayerMaxHealth(currentPid).negate())))
+			.seq(gainHealthEffect(52))
+			.seq(createCardEffect(cryomancer_frostbiteskill_carddef(), currentSkillsLoc))
+			.seq(createCardEffect(cryomancer_freezing_fog_carddef(), currentSkillsLoc))
+			.seq(createCardEffect(gold_carddef(), loc(currentPid, asidePloc)))
+			.seq(createCardEffect(gold_carddef(), loc(currentPid, asidePloc)))
+			.seq(createCardEffect(gold_carddef(), loc(currentPid, asidePloc)))
+			.seq(createCardEffect(gold_carddef(), loc(currentPid, asidePloc)))
+			.seq(createCardEffect(gold_carddef(), loc(currentPid, asidePloc)))
+			.seq(createCardEffect(gold_carddef(), loc(currentPid, asidePloc)))
+			.seq(createCardEffect(cryomancer_ice_sickle_carddef(), loc(currentPid, asidePloc)))
+			.seq(createCardEffect(cryomancer_frostwulf_carddef(), loc(currentPid, asidePloc)))
+			.seq(createCardEffect(cryomancer_ice_gem_carddef(), loc(currentPid, asidePloc)))
+			.seq(createCardEffect(cryomancer_freeze_carddef(), loc(currentPid, asidePloc)))
+
+--Confirm--			
+			.seq(moveTarget(deckPloc).apply(selectLoc(loc(currentPid, asidePloc))))
+			.seq(shuffleEffect(currentDeckLoc))
+			.seq(sacrificeTarget().apply(selectSource()))
+			.seq(pushChoiceEffectWithTitle(
+                                {
+                                    choices = {                                
+										{
+                                           effect = moveTarget(tradeDeckLoc).apply(selectLoc(centerRowLoc))
+													.seq(shuffleTradeDeckEffect())
+													.seq(refillMarketEffect(const(0)).seq(refillMarketEffect(const(1))).seq(refillMarketEffect(const(2))).seq(refillMarketEffect(const(3))).seq(refillMarketEffect(const(4))))
+													.seq(addEffect(endTurnEffect())),
+                                            layout = createLayout(
+                {
+                    name = "Yes",
+                    art = "art/treasures/t_cleric_elixir_green",
+                    frame = "frames/necromancer_frames/necromancer_item_cardframe",
+                    xmlText=[[
+					<vlayout>
+   <hlayout flexibleheight="3">
+ <tmpro text="Accept choice.
+Start playing." fontsize="30" flexiblewidth="1" />
+</hlayout>
+</vlayout>
+					]],
+
+                }
+            ),
+                                            tags = {}
+                                        },
+										
+										{
+                                           effect = nullEffect(),
+                                            layout = createLayout(
+                {
+                    name = "No",
+                    art = "art/treasures/t_cleric_elixir_blue_purple",
+                    frame = "frames/necromancer_frames/necromancer_item_cardframe",
+                    xmlText=[[
+					<vlayout>
+   <hlayout flexibleheight="3">
+ <tmpro text="Pick again.
+&lt;size=65%&gt;(Click this card, then 'Undo'.)" fontsize="30" flexiblewidth="1" />
+</hlayout>
+</vlayout>
+					]],
+
+                }
+            ),
+                                            tags = {}
+                                        }
+                                    },
+					upperTitle = "Confirm your choice. Do you want to use the cryomancer?",
+					lowerTitle = ""
+					}))
+
+--Level 12 card choice--
+.seq(pushChoiceEffectWithTitle({
+                                    choices = {
+                                        {
+                                            effect = gainMaxHealthEffect(currentPid, const(58).add(getPlayerMaxHealth(currentPid).negate()))
+												.seq(gainHealthEffect(58)),
+                                            layout = createLayout(
+                {
+                    name = "Additional Health",
+                    art = "avatars/rayla__endweaver_flipped",
+                    frame = "frames/wizard_cardframe",
+                    xmlText=[[
+<vlayout>
+    <box flexibleheight="9">
+        <tmpro text="{health_+6}" fontsize="70"/>
+    </box>
+ </vlayout>
+]]
+				}
+            )
+            ,
+                                            tags = {}
+                                        },
+                                        
+										{
+                                            effect = createCardEffect(cryomancer_fog_carddef(), currentSkillsLoc),
+                                            layout = createLayout(
+                {
+                    name = "Fog",
+                    art = "art/t_blow_away",
+                    frame = "frames/wizard_cardframe",
+                    xmlText=[[
+					<vlayout>
+    <hlayout flexibleheight="1">
+        <box flexiblewidth="1">
+            <tmpro text="{scrap}" fontsize="40"/>
+        </box>
+        <box flexiblewidth="7">
+            <tmpro text="Set aside a card of cost 2{gold} or less in your opponent's discard pile. The next time your opponent shuffles their deck, put that card on the bottom of their deck." fontsize="18" />
+        </box>
+    </hlayout>
+</vlayout>
+					]]
+				}
+            ),
+                                            tags = {}
+                                        },
+										
+                                    },
+					upperTitle = "Level 12: Choose an upgrade.",
+					lowerTitle = "Gain max health, or gain a level 1 Ability."
+					}))
+
+--Level 11 card choice--
+.seq(pushChoiceEffectWithTitle({
+                                    choices = {
+                                        {
+                                            effect = createCardEffect(cryomancer_eternal_frost_carddef(), currentDeckLoc),
+                                            layout = createLayout(
+                {
+                    name = "External Frost",
+                    art = "art/epicart/forced_exile",
+                    frame = "frames/wizard_cardframe",
+                    xmlText=[[
+<vlayout>
+    <box flexibleheight="7">
+        <tmpro text="Draw 1
+
+Add a frostbite card to opponent's discard." fontsize="24"/>
+    </box>
+</vlayout>
+]]
+				}
+            )
+            ,
+                                            tags = {}
+                                        },
+                                        
+										{
+                                            effect = createCardEffect(cyromancer_cryonics_carddef(), currentDeckLoc),
+                                            layout = createLayout(
+                {
+                    name = "Cryonics",
+                    art = "art/epicart/transfigure",
+                    frame = "frames/wizard_cardframe",
+                    xmlText=[[
+<vlayout>
+    <box flexibleheight="1">
+        <tmpro text="Put a champion from your discard pile to the bottom of your deck. It gets +3{shield} until it leaves play.
+
+Draw 1." fontsize="22" />
+    </box>
+</vlayout>
+					]]
+				}
+            ),
+					
+                                            tags = {}
+                                        },
+										
+                                    },
+					upperTitle = "Level 11: Choose a card to add to your deck.",
+					lowerTitle = "Add Eternal Frost or Cryonics to your deck."
+					}))
+			
+--Level 10 Ability choice--
+			.seq(pushChoiceEffectWithTitle(
+                                {
+                                    choices = {
+                                        {
+                                            effect = sacrificeTarget().apply(selectLoc(loc(currentPid, skillsPloc)).where(isCardName("cryomancer_hoarfrost").Or(isCardName("cryomancer_ice_floe_ab"))))
+				.seq(createCardEffect(cryomancer_snow_squall_carddef(), currentSkillsLoc)),
+                                            layout = createLayout(
+                {
+					name = "Snow Squall",
+					art = "art/t_chaotic_gust",
+					frame = "frames/wizard_cardframe",
+					xmlText=[[
+					<vlayout>
+    <hlayout flexibleheight="2">
+            <icon text="{scrap}" fontsize="32" flexiblewidth="0"/>
+            <tmpro text="Put Frostbite card on top of opponent's deck.
+
+Set aside a card of cost 8{gold} or less in your opponent's discard pile. The next time your opponent shuffles their deck, put that card on the bottom of their deck." fontsize="14" flexiblewidth="10" />
+    </hlayout>
+    <divider/>
+    <hlayout flexibleheight="0.5">
+            <tmpro text="Frostbite card: {scrap} {health_-1}" fontsize="14" flexiblewidth="10" />
+    </hlayout> 
+</vlayout>
+					]]
+                }
+            ),
+                                            tags = {}
+                                        },
+                                        
+										{
+                                            effect = sacrificeTarget().apply(selectLoc(loc(currentPid, skillsPloc)).where(isCardName("cryomancer_hoarfrost").Or(isCardName("cryomancer_ice_floe_ab"))))
+					.seq(createCardEffect(cryomancer_ice_sheet_ab_carddef(), currentSkillsLoc)),
+                                            layout = createLayout(
+                {
+                    name = "Ice Sheet",
+					art = "art/t_chaotic_gust",
+					frame = "frames/wizard_cardframe",
+					xmlText=[[
+					<vlayout>
+    <hlayout flexibleheight="2">
+            <icon text="{scrap}" fontsize="32" flexiblewidth="0"/>
+            <tmpro text="Set aside a card of cost 6{gold} or less in your opponent's discard pile. The next time your opponent shuffles their deck, put that card on the bottom of their deck.
+
+Put an Ice Floe card on top of opponent's deck." fontsize="14" flexiblewidth="10" />
+    </hlayout>
+    <divider/>
+    <hlayout flexibleheight="0.5">
+            <tmpro text="Ice Floe card: Does nothing" fontsize="14" flexiblewidth="10" />
+    </hlayout> 
+</vlayout>
+					]]
+                }
+            ),
+                                            tags = {}
+                                        },
+										
+										{
+                                            effect = sacrificeTarget().apply(selectLoc(loc(currentPid, skillsPloc)).where(isCardName("cryomancer_hoarfrost").Or(isCardName("cryomancer_ice_floe_ab"))))
+											.seq(createCardEffect(cryomancer_permafrost_ab_carddef(), currentSkillsLoc)),
+                                            layout = createLayout(
+                {
+                    name = "Permafrost",
+					art = "art/t_chaotic_gust",
+					frame = "frames/wizard_cardframe",
+					xmlText=[[
+					<vlayout>
+    <hlayout flexibleheight="1">
+            <icon text="{scrap}" fontsize="28" flexiblewidth="0"/>
+            <tmpro text="Set aside a card of cost 4{gold} or less in your opponent's discard pile. The next time they shuffle their deck, put that card on the bottom of their deck.
+
+Put Permafrost on top of their deck." fontsize="14" flexiblewidth="1" />
+    </hlayout>
+    <divider/>
+    <hlayout flexibleheight="0.2">
+            <tmpro text="Permafrost: Does nothing. Can't be sacrificed." fontsize="12" flexiblewidth="10" />
+    </hlayout> 
+</vlayout>
+					]]
+                }
+            ),
+                                            tags = {}
+                                        }
+										
+                                    },
+					upperTitle = "Level 10: Choose which ability you would like to upgrade to.",
+					lowerTitle = "Click your choice to proceed."
+					}))
+	
+--Level 9 Armour choice--
+.seq(pushChoiceEffectWithTitle({
+                                    choices = {
+                                        {
+                                            effect = createCardEffect(cryomancer_ice_mail_carddef(), currentSkillsLoc),
+                                            layout = createLayout(
+                {
+                    name = "Ice Mail",
+        art = "art/epicart/crystal_golem",
+        frame = "frames/wizard_cardframe",
+        xmlText=[[
+					
+<vlayout>
+    <hlayout flexibleheight="1">
+        <box flexiblewidth="1">
+            <tmpro text="{requiresHealth_40}" fontsize="60"/>
+        </box>
+        <box flexiblewidth="5">
+            <tmpro text="Choose a card in the market. Your opponent can't buy it on their next turn. It will cost you {gold_1} less to buy on your next turn." fontsize="20" />
+        </box>
+    </hlayout>
+</vlayout>
+					]]
+				}
+            ),
+                                            tags = {}
+                                        },
+                                        
+										{
+                                            effect = createCardEffect(cryomancer_ice_crown_carddef(), currentSkillsLoc),
+                                            layout = createLayout(
+                {
+                    name = "Ice Crown",
+        art = "art/classes/necromancer/rotting_crown",
+        frame = "frames/wizard_cardframe",
+        xmlText=[[
+					
+<vlayout>
+    <hlayout flexibleheight="1">
+        <box flexiblewidth="1">
+            <tmpro text="{requiresHealth_35}" fontsize="60"/>
+        </box>
+        <box flexiblewidth="5">
+            <tmpro text="If you stunned a champion or played a champion this turn, draw 1." fontsize="20" />
+        </box>
+    </hlayout>
+</vlayout>
+					]]
+				}
+            ),
+                                            tags = {}
+                                        },
+										
+                                    },
+					upperTitle = "Level 9: Choose your armour.",
+					lowerTitle = ""
+					}))
+
+--Level 8 Ability choice--
+			.seq(pushChoiceEffectWithTitle(
+                                {
+                                    choices = {
+                                        {
+                                            effect = sacrificeTarget().apply(selectLoc(loc(currentPid, skillsPloc)).where(isCardName("cryomancer_freezing_fog")))
+				.seq(createCardEffect(cryomancer_hoarfrost_carddef(), currentSkillsLoc)),
+                                            layout = createLayout(
+                {
+                    name = "Hoarfrost",
+					art = "art/t_chaotic_gust",
+					frame = "frames/wizard_cardframe",
+					xmlText=[[
+					<vlayout>
+    <hlayout flexibleheight="2">
+            <icon text="{scrap}" fontsize="32" flexiblewidth="0"/>
+            <tmpro text="Put Frostbite card on top of opponent's deck.
+
+Set aside a card of cost 6{gold} or less in your opponent's discard pile. The next time your opponent shuffles their deck, put that card on the bottom of their deck." fontsize="14" flexiblewidth="10" />
+    </hlayout>
+    <divider/>
+    <hlayout flexibleheight="0.5">
+            <tmpro text="Frostbite card: {scrap} {health_-1}" fontsize="14" flexiblewidth="10" />
+    </hlayout> 
+</vlayout>
+					]]
+                }
+            ),
+                                            tags = {}
+                                        },
+                                        
+										{
+                                            effect = sacrificeTarget().apply(selectLoc(loc(currentPid, skillsPloc)).where(isCardName("cryomancer_freezing_fog")))
+				.seq(createCardEffect(cryomancer_ice_floe_ab_carddef(), currentSkillsLoc)),
+                                            layout = createLayout(
+                {
+					name = "Ice Floe",
+					art = "art/t_chaotic_gust",
+					frame = "frames/wizard_cardframe",
+					xmlText=[[
+					<vlayout>
+    <hlayout flexibleheight="2">
+            <icon text="{scrap}" fontsize="32" flexiblewidth="0"/>
+            <tmpro text="Set aside a card of cost 4{gold} or less in your opponent's discard pile. The next time your opponent shuffles their deck, put that card on the bottom of their deck.
+
+Put an Ice Floe card on top of opponent's deck." fontsize="14" flexiblewidth="10" />
+    </hlayout>
+    <divider/>
+    <hlayout flexibleheight="0.5">
+            <tmpro text="Ice Floe card: Does nothing" fontsize="14" flexiblewidth="10" />
+    </hlayout> 
+</vlayout>
+					]]
+                }
+            ),
+                                            tags = {}
+                                        },
+										
+                                    },
+					upperTitle = "Level 8: Choose which ability you would like to upgrade to.",
+					lowerTitle = "Click your choice to proceed."
+					}))
+	
+--Level 7 card choice--
+.seq(pushChoiceEffectWithTitle({
+                                    choices = {
+                                        {
+                                            effect = createCardEffect(cryomancer_cold_snap_carddef(), currentDeckLoc),
+                                            layout = createLayout(
+                {
+                    name = "Cold Snap",
+                    art = "art/epicart/ice_drake",
+                    frame = "frames/wizard_cardframe",
+                    xmlText=[[
+<vlayout>
+    <box flexibleheight="1">
+        <tmpro text="Draw 1.
+Target opponent takes 1 damage for each Frostbite card in their hand/deck/discard pile." fontsize="24" />
+    </box>
+</vlayout>
+]]
+				}
+            )
+            ,
+                                            tags = {}
+                                        },
+                                        
+										{
+                                            effect = createCardEffect(cyromancer_polarmour_carddef(), currentDeckLoc),
+                                            layout = createLayout(
+                {
+                    name = "Polarmour",
+                    art = "art/epicart/force_field",
+                    frame = "frames/wizard_cardframe",
+                    xmlText=[[
+<vlayout>
+    <box flexibleheight="1">
+        <tmpro text="Draw 1.
+Attach this to a friendly champion. It has +1{shield} and when stunned, target opponent takes 3 damage." fontsize="22" />
+    </box>
+</vlayout>
+					]]
+				}
+            ),
+                                            tags = {}
+                                        },
+										
+                                    },
+					upperTitle = "Level 7: Choose a card to add to your deck.",
+					lowerTitle = ""
+					}))
+			
+
+--Level 6 skill choice--
+			.seq(pushChoiceEffectWithTitle(
+                                {
+                                    choices = {
+                                        {
+                                            effect = sacrificeTarget().apply(selectLoc(loc(currentPid, skillsPloc)).where(isCardName("cryomancer_rapid_frostbiteskill").Or(isCardName("cryomancer_deep_frostbiteskill"))))
+				.seq(createCardEffect(cryomancer_instant_frostbiteskill_carddef(), currentSkillsLoc)),
+                                            layout = createLayout(
+                {
+                    name = "Instant Frostbite",
+        art = "art/epicart/frost_giant",
+        frame = "frames/wizard_cardframe",
+        xmlText = 
+		[[
+		<vlayout>
+    <hlayout flexibleheight="2">
+            <icon text="{expend_1}" fontsize="72" flexiblewidth="0"/>
+            <tmpro text="Add a frostbite card to the top of opponent's deck." fontsize="20" flexiblewidth="10" />
+    </hlayout>
+    <divider/>
+    <hlayout flexibleheight="2">
+            <tmpro text="Frostbite card: {scrap} {health_-1}" fontsize="20" flexiblewidth="10" />
+    </hlayout> 
+</vlayout>
+					]]
+                }
+            ),
+                                            tags = {}
+                                        },
+                                        
+										{
+                                            effect = sacrificeTarget().apply(selectLoc(loc(currentPid, skillsPloc)).where(isCardName("cryomancer_rapid_frostbiteskill").Or(isCardName("cryomancer_deep_frostbiteskill"))))
+				.seq(createCardEffect(cryomancer_severe_frostbiteskill_carddef(), currentSkillsLoc)),
+                                            layout = createLayout(
+                {
+                    name = "Severe Frostbite",
+        art = "art/epicart/frost_giant",
+        frame = "frames/wizard_cardframe",
+        xmlText = 
+		[[
+		<vlayout>
+    <hlayout flexibleheight="2">
+            <icon text="{expend_2}" fontsize="72" flexiblewidth="0"/>
+            <tmpro text="Add 1 frostbite card to opponent's discard and another to the top of their deck." fontsize="20" flexiblewidth="10" />
+    </hlayout>
+    <divider/>
+    <hlayout flexibleheight="2">
+            <tmpro text="Frostbite card: {scrap} {health_-1}" fontsize="20" flexiblewidth="10" />
+    </hlayout> 
+</vlayout>
+					]]
+                }
+            ),
+                                            tags = {}
+                                        },
+										
+										{
+                                            effect = sacrificeTarget().apply(selectLoc(loc(currentPid, skillsPloc)).where(isCardName("cryomancer_rapid_frostbiteskill").Or(isCardName("cryomancer_deep_frostbiteskill"))))
+				.seq(createCardEffect(cryomancer_extreme_frostbiteskill_carddef(), currentSkillsLoc)),
+                                            layout = createLayout(
+                {
+                    name = "Extreme Frostbite",
+        art = "art/epicart/frost_giant",
+        frame = "frames/wizard_cardframe",
+        xmlText = 
+		[[
+		<vlayout>
+    <hlayout flexibleheight="2">
+            <icon text="{expend_2}" fontsize="72" flexiblewidth="0"/>
+            <tmpro text="{combat_2}
+&lt;size=65%&gt;Add 2 frostbite cards to opponent's discard." fontsize="30" flexiblewidth="10" />
+    </hlayout>
+    <divider/>
+    <hlayout flexibleheight="2">
+            <tmpro text="Frostbite card: {scrap} {health_-1}" fontsize="20" flexiblewidth="10" />
+    </hlayout> 
+</vlayout>
+					]]
+                }
+            ),
+                                            tags = {}
+                                        },
+										
+                                    },
+					upperTitle = "Level 6: Choose which skill you would like to upgrade to.",
+					lowerTitle = "Click your choice to proceed."
+					}))
+	
+--Level 5 card choice--
+.seq(pushChoiceEffectWithTitle({
+                                    choices = {
+                                        {
+                                            effect = sacrificeTarget().apply(selectLoc(loc(currentPid, deckPloc)).where(isCardName("cryomancer_freeze")))
+.seq(createCardEffect(cryomancer_deep_freeze_carddef(), currentDeckLoc)),
+                                            layout = createLayout(
+                {
+                    name = "Deep Freeze",
+                    art = "art/epicart/polar_shock",
+                    frame = "frames/wizard_cardframe",
+                    xmlText=[[
+<vlayout>
+    <box flexibleheight="2">
+        <tmpro text="{combat_1}" fontsize="50"/>
+    </box>
+	<box flexibleheight="2">
+        <tmpro text="Expend and deal 1 damage to all of opponent's  champions." fontsize="22" />
+    </box>
+</vlayout>
+					]],
+                    
+                })
+            ,
+                                            tags = {}
+                                        },
+                                        
+										{
+                                            effect = sacrificeTarget().apply(selectLoc(loc(currentPid, deckPloc)).where(isCardName("cryomancer_ice_sickle")))
+.seq(createCardEffect(cryomancer_ice_sickles_carddef(), currentDeckLoc)),
+                                            layout = createLayout(
+                {
+                    name = "Ice Sickles",
+                    art = "art/epicart/shock_trooper",
+                    frame = "frames/wizard_cardframe",
+                    xmlText=[[
+<vlayout>
+    <box flexibleheight="7">
+        <tmpro text="{combat_2}" fontsize="42"/>
+    </box>
+
+<box flexibleheight="7">
+        <tmpro text="+{combat_1} for each champion you have in play" fontsize="22"/>
+    </box>
+<divider/>
+    <box flexibleheight="3">
+        <tmpro text="Welcome to the harvest." fontsize="18" fontstyle="italic"/>
+    </box>
+</vlayout>
+					]],
+                }
+            ),
+                                            tags = {}
+                                        },
+										
+                                    },
+					upperTitle = "Level 5: Choose which card you would like to upgrade to.",
+					lowerTitle = "Replace Freeze or Ice Sickle."
+					}))
+			
+--Level 4 skill choice--
+			.seq(pushChoiceEffectWithTitle(
+                                {
+                                    choices = {
+                                        {
+                                            effect = sacrificeTarget().apply(selectLoc(loc(currentPid, skillsPloc)).where(isCardName("cryomancer_frostbiteskill_skill")))
+				.seq(createCardEffect(cryomancer_rapid_frostbiteskill_carddef(), currentSkillsLoc)),
+                                            layout = createLayout(
+                {
+                    name = "Rapid Frostbite",
+        art = "art/epicart/frost_giant",
+        frame = "frames/wizard_cardframe",
+        xmlText = 
+		[[
+		<vlayout>
+    <hlayout flexibleheight="2">
+            <icon text="{expend_2}" fontsize="72" flexiblewidth="0"/>
+            <tmpro text="Add a frostbite card to the top of opponent's deck." fontsize="20" flexiblewidth="10" />
+    </hlayout>
+    <divider/>
+    <hlayout flexibleheight="2">
+            <tmpro text="Frostbite card: {scrap} {health_-1}" fontsize="20" flexiblewidth="10" />
+    </hlayout> 
+</vlayout>
+					]]
+                }
+            ),
+                                            tags = {}
+                                        },
+                                        
+										{
+                                            effect = sacrificeTarget().apply(selectLoc(loc(currentPid, skillsPloc)).where(isCardName("cryomancer_frostbiteskill_skill")))
+				.seq(createCardEffect(cryomancer_deep_frostbiteskill_carddef(), currentSkillsLoc)),
+                                            layout = createLayout(
+                {
+					name = "Deep Frostbite",
+        art = "art/epicart/frost_giant",
+        frame = "frames/wizard_cardframe",
+        xmlText = 
+		[[
+		<vlayout>
+    <hlayout flexibleheight="2">
+            <icon text="{expend_2}" fontsize="72" flexiblewidth="0"/>
+            <tmpro text="Add 2 frostbite cards to opponent's discard." fontsize="20" flexiblewidth="10" />
+    </hlayout>
+    <divider/>
+    <hlayout flexibleheight="2">
+            <tmpro text="Frostbite card: {scrap} {health_-1}" fontsize="20" flexiblewidth="10" />
+    </hlayout> 
+</vlayout>
+					]]
+                }
+            ),
+                                            tags = {}
+                                        },
+										
+                                    },
+					upperTitle = "Level 4: Choose which skill you would like to upgrade to.",
+					lowerTitle = "Click your choice to proceed."
+					}))
+	
+            })
+        },
+        layout = createLayout({
+            name = "Cryomancer",
+            art = "avatars/rayla__endweaver_flipped",
+			frame = "frames/coop_campaign_cardframe",
+            xmlText=[[
+			<vlayout>
+    <box flexibleheight="2">
+        <tmpro text="Play as a level 12
+Cryomancer" fontsize="26"/>
+    </box>
+    <box flexibleheight="1">
+        <tmpro text="
+- Class by Aarkenell -" fontsize="22" fontstyle="italic"/>
+    </box>
+
+<box flexibleheight="1">
+        <tmpro text="- Created 06.03.2025-" fontsize="14" fontstyle="italic"/>
+    </box>
+</vlayout>
+
 			]]
 			}),
         })
@@ -1953,7 +2654,7 @@ function demonologist_void_guard_carddef()
             layout = createLayout(
                 {
                     name = "Void guard",
-                    art = "art/T_Midnight_Knight",
+                    art = "art/t_midnight_knight",
                     frame = "frames/necromancer_frames/necromancer_item_cardframe",
                     xmlText=[[
 					<vlayout>
@@ -1998,7 +2699,7 @@ function demonologist_lesser_devourer_carddef()
             layout = createLayout(
                 {
                     name = "Lesser Devourer",
-                    art = "art/T_Demon",
+                    art = "art/t_demon",
                     frame = "frames/necromancer_frames/necromancer_item_cardframe",
                     xmlText = [[
 <vlayout>
@@ -2022,7 +2723,7 @@ end
 function demonologist_summon_demon_carddef()
     local cardLayout = createLayout({
         name = "Summon",
-        art = "icons/The_Summoning",
+        art = "icons/the_summoning",
         frame = "frames/necromancer_frames/necromancer_item_cardframe",
 		xmlText=[[
 		<vlayout>
@@ -2052,7 +2753,7 @@ function demonologist_summon_demon_carddef()
         name = "Summon Demon",
         types = { skillType },
         layout = cardLayout,
-        layoutPath = "icons/The_Summoning",
+        layoutPath = "icons/the_summoning",
         abilities = {
             createAbility({
                 id = "demonologist_summon_demon_ab",
@@ -2073,7 +2774,7 @@ function demonologist_summon_demon_carddef()
                                             layout = createLayout(
                 {
                     name = "Demonic leech",
-                    art = "art/T_wurm",
+                    art = "art/t_wurm",
                     frame = "frames/necromancer_frames/necromancer_item_cardframe",
 					xmlText = [[
 <vlayout>
@@ -2142,7 +2843,7 @@ Demonic Leech gains 1{shield} until it leaves play. " fontsize="18"/>
                                             layout = createLayout(
                 {
                     name = "Succubus",
-                    art = "art/epicart/Succubus",
+                    art = "art/epicart/succubus",
                     frame = "frames/necromancer_frames/necromancer_item_cardframe",
                     xmlText=[[
 					<vlayout>
@@ -2176,7 +2877,7 @@ Demonic Leech gains 1{shield} until it leaves play. " fontsize="18"/>
 		layout = createLayout(
                 {
                     name = "Summon Demon",
-                    art = "icons/The_Summoning",
+                    art = "icons/the_summoning",
                     frame = "frames/necromancer_frames/necromancer_item_cardframe",
                     xmlText=[[
 					<vlayout>
@@ -2250,7 +2951,7 @@ function demonologist_demonic_leech_carddef()
             layout = createLayout(
                 {
                     name = "Demonic leech",
-                    art = "art/T_wurm",
+                    art = "art/t_wurm",
                     frame = "frames/necromancer_frames/necromancer_item_cardframe",
 					xmlText = [[
 <vlayout>
@@ -2381,7 +3082,7 @@ function demonologist_succubus_carddef()
             layout = createLayout(
                 {
                     name = "Succubus",
-                    art = "art/epicart/Succubus",
+                    art = "art/epicart/succubus",
                     frame = "frames/necromancer_frames/necromancer_item_cardframe",
                     xmlText=[[
 					<vlayout>
@@ -2411,7 +3112,7 @@ end
 function demonologist_summon_demon_master_carddef()
     local cardLayout = createLayout({
         name = "Summon Demon Master",
-        art = "art/T_Angry_Skeleton",
+        art = "art/t_angry_skeleton",
         frame = "frames/necromancer_frames/necromancer_item_cardframe",
 		xmlText=[[
 <vlayout>
@@ -2435,7 +3136,7 @@ Master into play.
         name = "Summon Demon Master",
         types = { skillType },
         layout = cardLayout,
-        layoutPath = "art/T_Angry_Skeleton",
+        layoutPath = "art/t_angry_skeleton",
         abilities = {
             createAbility({
                 id = "demonologist_summon_demon_master_ab",
@@ -2450,7 +3151,7 @@ Master into play.
 		layout = createLayout(
                 {
                     name = "Summon Demon Master",
-                    art = "art/T_Angry_Skeleton",
+                    art = "art/t_angry_skeleton",
                     frame = "frames/necromancer_frames/necromancer_item_cardframe",
                     xmlText=[[
 					<vlayout>
@@ -2512,7 +3213,7 @@ function demonologist_demon_master_carddef()
             },
             layout = createLayout({
             name = "Demon Master",
-            art = "art/T_Angry_Skeleton",
+            art = "art/t_angry_skeleton",
             frame = "frames/necromancer_frames/necromancer_item_cardframe",
             xmlText = [[
 			<vlayout>
@@ -3314,7 +4015,7 @@ function demonologist_dark_summon_carddef()
                                             layout = createLayout(
                 {
                     name = "Giant Demonic Leech",
-                    art = "art/T_wurm",
+                    art = "art/t_wurm",
                     frame = "frames/necromancer_frames/necromancer_item_cardframe",
 					xmlText = [[
 <vlayout>
@@ -3383,7 +4084,7 @@ Demonic Leech gains 1{shield} until it leaves play. " fontsize="18"/>
                                             layout = createLayout(
                 {
                     name = "Dark Succubus",
-                    art = "art/epicart/Succubus",
+                    art = "art/epicart/succubus",
                     frame = "frames/necromancer_frames/necromancer_item_cardframe",
                     xmlText=[[
 					<vlayout>
@@ -3824,7 +4525,7 @@ Randomly summon 1 of 3 demon tokens into play." fontsize="20" />
                                             layout = createLayout(
                 {
                     name = "Demonic leech",
-                    art = "art/T_wurm",
+                    art = "art/t_wurm",
                     frame = "frames/necromancer_frames/necromancer_item_cardframe",
 					xmlText = [[
 <vlayout>
@@ -3895,7 +4596,7 @@ Demonic Leech gains 1{shield} until it leaves play. " fontsize="18"/>
                                             layout = createLayout(
                 {
                     name = "Succubus",
-                    art = "art/epicart/Succubus",
+                    art = "art/epicart/succubus",
                     frame = "frames/necromancer_frames/necromancer_item_cardframe",
                     xmlText=[[
 					<vlayout>
@@ -4356,7 +5057,7 @@ end
 function demonologist_malevolent_summon_carddef()
     local cardLayout = createLayout({
         name = "Malevolent Summon",
-        art = "icons/The_Summoning",
+        art = "icons/the_summoning",
         frame = "frames/necromancer_frames/necromancer_item_cardframe",
 		xmlText=[[
 <vlayout>
@@ -4549,7 +5250,7 @@ end
 function demonologist_sinister_summon_carddef()
     local cardLayout = createLayout({
         name = "Sinister Summon",
-        art = "icons/The_Summoning",
+        art = "icons/the_summoning",
         frame = "frames/necromancer_frames/necromancer_item_cardframe",
 		xmlText=[[
 		<vlayout>
@@ -4600,7 +5301,7 @@ Randomly summon 1 of 3 demon tokens into play." fontsize="20" />
                                             layout = createLayout(
                 {
                     name = "Demonic leech",
-                    art = "art/T_wurm",
+                    art = "art/t_wurm",
                     frame = "frames/necromancer_frames/necromancer_item_cardframe",
 					xmlText = [[
 <vlayout>
@@ -4669,7 +5370,7 @@ Demonic Leech gains 1{shield} until it leaves play. " fontsize="18"/>
                                             layout = createLayout(
                 {
                     name = "Succubus",
-                    art = "art/epicart/Succubus",
+                    art = "art/epicart/succubus",
                     frame = "frames/necromancer_frames/necromancer_item_cardframe",
                     xmlText=[[
 					<vlayout>
@@ -4757,8 +5458,8 @@ function demonologist_grimoire_carddef()
             layout = createLayout(
                 {
                     name = "Grimoire",
-                    art = "art/T_Evangelize",
-                    frame = "frames/Wizard_CardFrame",
+                    art = "art/t_evangelize",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 					<vlayout>
     <hlayout flexibleheight="2">
@@ -4802,7 +5503,7 @@ function demonologist_scroll_of_summoning_carddef()
                                             layout = createLayout(
                 {
                     name = "Demonic leech",
-                    art = "art/T_wurm",
+                    art = "art/t_wurm",
                     frame = "frames/necromancer_frames/necromancer_item_cardframe",
 					xmlText = [[
 <vlayout>
@@ -4863,7 +5564,7 @@ Demonic Leech gains 1{shield} until it leaves play. " fontsize="18"/>
                                             layout = createLayout(
                 {
                     name = "Succubus",
-                    art = "art/epicart/Succubus",
+                    art = "art/epicart/succubus",
                     frame = "frames/necromancer_frames/necromancer_item_cardframe",
                     xmlText=[[
 					<vlayout>
@@ -4900,8 +5601,8 @@ Demonic Leech gains 1{shield} until it leaves play. " fontsize="18"/>
             layout = createLayout(
                 {
                     name = "Scroll of Summoning",
-                    art = "art/treasures/T_Magic_Scroll_Souveraine",
-                    frame = "frames/Wizard_CardFrame",
+                    art = "art/treasures/t_magic_scroll_souveraine",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 					<vlayout>
     <hlayout flexibleheight="2">
@@ -5030,18 +5731,17 @@ function demonologist_butcherclaw_carddef()
             },
             layout = createLayout({
             name = "Butcherclaw",
-            prompt = showPrompt,
-			art = "icons/slaughterclaw",
+            art = "icons/slaughterclaw",
             frame = "frames/necromancer_frames/necromancer_item_cardframe",
             xmlText = [[
 			<vlayout>
-    <hlayout flexibleheight="0">
-            <tmpro text="{expend}" fontsize="36" flexiblewidth="2"/>
-            <icon text="{combat_2}" fontsize="36" flexiblewidth="10" />
+    <hlayout flexibleheight="0.2">
+            <tmpro text="{expend}" fontsize="40" flexiblewidth="2"/>
+            <icon text="{combat_2}" fontsize="40" flexiblewidth="10" />
     </hlayout>
 <divider/>
-    <hlayout flexibleheight="12">
-            <tmpro text="Once per turn, you may sacrifice a non-minion champion in your discard pile to sprout a spike equal to its cost." fontsize="18" flexiblewidth="10" />
+    <hlayout flexibleheight="7">
+            <tmpro text="Once per turn, you may sacrifice a champion in your discard pile to sprout a spike equal to its cost." fontsize="20" flexiblewidth="10" />
     </hlayout> 
 </vlayout>
 ]],
@@ -5111,7 +5811,7 @@ end
 function demonologist_summon_demon_ability_carddef()
     local cardLayout = createLayout({
         name = "Summon Demon Minion",
-        art = "icons/The_Summoning",
+        art = "icons/the_summoning",
         frame = "frames/necromancer_frames/necromancer_item_cardframe",
 		xmlText=[[
 		<vlayout>
@@ -5140,7 +5840,7 @@ function demonologist_summon_demon_ability_carddef()
         name = "Summon Demon Minion",
         types = { abilityType },
         layout = cardLayout,
-        layoutPath = "icons/The_Summoning",
+        layoutPath = "icons/the_summoning",
         abilities = {
             createAbility({
                 id = "demonologist_summon_demon_minion_ab",
@@ -5160,7 +5860,7 @@ function demonologist_summon_demon_ability_carddef()
                                             layout = createLayout(
                 {
                     name = "Demonic leech",
-                    art = "art/T_wurm",
+                    art = "art/t_wurm",
                     frame = "frames/necromancer_frames/necromancer_item_cardframe",
 					xmlText = [[
 <vlayout>
@@ -5229,7 +5929,7 @@ Demonic Leech gains 1{shield} until it leaves play. " fontsize="18"/>
                                             layout = createLayout(
                 {
                     name = "Succubus",
-                    art = "art/epicart/Succubus",
+                    art = "art/epicart/succubus",
                     frame = "frames/necromancer_frames/necromancer_item_cardframe",
                     xmlText=[[
 					<vlayout>
@@ -5263,7 +5963,7 @@ Demonic Leech gains 1{shield} until it leaves play. " fontsize="18"/>
 		layout = createLayout(
                 {
                     name = "Summon Demon Minion",
-                    art = "icons/The_Summoning",
+                    art = "icons/the_summoning",
                     frame = "frames/necromancer_frames/necromancer_item_cardframe",
                     xmlText=[[
 					<vlayout>
@@ -5295,7 +5995,7 @@ function demonologist_demonic_amulet_carddef()
 
  local cardLayout = createLayout({
         name = "Demonic Amulet",
-        art = "art/T_wizard_silverskull_amulet",
+        art = "art/t_wizard_silverskull_amulet",
         frame = "frames/necromancer_frames/necromancer_item_cardframe",
         xmlText=[[
 					
@@ -5349,7 +6049,7 @@ function demonologist_summoner_s_robes_carddef()
 
  local cardLayout = createLayout({
         name = "Summoner's Robes",
-        art = "art/T_wizard_runic_robes",
+        art = "art/t_wizard_runic_robes",
         frame = "frames/necromancer_frames/necromancer_item_cardframe",
         xmlText=[[
 					<vlayout>
@@ -5428,7 +6128,7 @@ function pyromancer_combust_carddef()
                 {
                     name = "Combust",
                     art = "art/epicart/zaltessa_s_fire",
-                    frame = "frames/Wizard_CardFrame",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 <vlayout>
     <box flexibleheight="1">
@@ -5468,7 +6168,7 @@ function pyromancer_sear_carddef()
                 {
                     name = "Sear",
                     art = "art/epicart/flame_spike",
-                    frame = "frames/Wizard_CardFrame",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 <vlayout>
 <hlayout flexiblewidth="1">
@@ -5505,7 +6205,7 @@ function pyromancer_scorch_carddef()
                 {
                     name = "Scorch",
                     art = "art/epicart/flame_strike",
-                    frame = "frames/Wizard_CardFrame",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 <vlayout>
     <box flexibleheight="1">
@@ -5545,7 +6245,7 @@ function pyromancer_fire_shard_carddef()
                                             layout = layoutCard(
                                                 {
                                                     title = "Fire Shard",
-                                                    art = "art/treasures/Thief_Sharpened_ruby",
+                                                    art = "art/treasures/thief_sharpened_ruby",
                                                     xmlText=[[
 <vlayout>
 <hlayout flexiblewidth="1">
@@ -5562,7 +6262,7 @@ function pyromancer_fire_shard_carddef()
                                             layout = layoutCard(
                                                 {
                                                     title = "Fire Shard",
-                                                    art = "art/treasures/Thief_Sharpened_ruby",
+                                                    art = "art/treasures/thief_sharpened_ruby",
                                                     xmlText=[[
 <vlayout>
 <hlayout flexiblewidth="1">
@@ -5584,8 +6284,8 @@ function pyromancer_fire_shard_carddef()
             layout = createLayout(
                 {
                     name = "Fire Shard",
-                    art = "art/treasures/Thief_Sharpened_ruby",
-                    frame = "frames/Wizard_CardFrame",
+                    art = "art/treasures/thief_sharpened_ruby",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 <vlayout>
     <box flexibleheight="1">
@@ -5751,7 +6451,7 @@ function pyromancer_explode_carddef()
                 {
                     name = "Explode",
                     art = "art/epicart/zaltessa_s_fire",
-                    frame = "frames/Wizard_CardFrame",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 <vlayout>
     <box flexibleheight="1">
@@ -5791,7 +6491,7 @@ function pyromancer_incinerate_carddef()
                 {
                     name = "Incinerate",
                     art = "art/epicart/flame_strike",
-                    frame = "frames/Wizard_CardFrame",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 <vlayout>
     <box flexibleheight="1">
@@ -5844,7 +6544,7 @@ function pyromancer_patronage_carddef()
                 {
                     name = "Patronage",
                     art = "art/treasures/thief_brillant_ruby",
-                    frame = "frames/Wizard_CardFrame",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 					<vlayout>
     <box flexibleheight="9">
@@ -5890,7 +6590,7 @@ function pyromancer_fire_elemental_carddef()
                 {
                     name = "Fire Elemental",
                     art = "art/epicart/fire_spirit",
-                    frame = "frames/Wizard_CardFrame",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 					<vlayout>
     <hlayout flexibleheight="3">
@@ -5936,7 +6636,7 @@ function pyromancer_hearth_carddef()
                                             layout = layoutCard(
                                                 {
                                                     title = "Hearth",
-                                                    art = "art/T_Blistering_Blaze",
+                                                    art = "art/t_blistering_blaze",
                                                     xmlText=[[
 													<vlayout>
     <hlayout flexibleheight="1">
@@ -5955,7 +6655,7 @@ function pyromancer_hearth_carddef()
 											layout = layoutCard(
                                                 {
                                                     title = "Hearth",
-                                                    art = "art/T_Blistering_Blaze",
+                                                    art = "art/t_blistering_blaze",
                                                     xmlText=[[
 <vlayout>
     <box flexibleheight="1">
@@ -5976,8 +6676,8 @@ function pyromancer_hearth_carddef()
             layout = createLayout(
                 {
                     name = "Hearth",
-                    art = "art/T_Blistering_Blaze",
-                    frame = "frames/Wizard_CardFrame",
+                    art = "art/t_blistering_blaze",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 					<vlayout>
 <hlayout flexibleheight="1">
@@ -6019,7 +6719,7 @@ function pyromancer_volatile_chemicals_carddef()
                 {
                     name = "Volatile Chemicals",
                     art = "art/treasures/wizard_adept_s_components",
-                    frame = "frames/Wizard_CardFrame",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 					<vlayout>
 <hlayout flexibleheight="1">
@@ -6039,8 +6739,8 @@ function pyromancer_fire_gem_amulet_carddef()
 
  local cardLayout = createLayout({
         name = "Fire Gem Amulet",
-        art = "art/T_fire_gem",
-        frame = "frames/Wizard_CardFrame",
+        art = "art/t_fire_gem",
+        frame = "frames/wizard_cardframe",
         xmlText=[[
 					
 <vlayout>
@@ -6065,7 +6765,7 @@ Otherwise give a Fire Bird +1{shield} until it leaves play." fontsize="19" />
 			            acquireCost = 0,
             cardTypeLabel = "Armour",
 			layout = cardLayout,
-			layoutPath  = "art/T_fire_gem",
+			layoutPath  = "art/t_fire_gem",
             playLocation = castPloc,
             abilities = {
 				createAbility(
@@ -6143,7 +6843,7 @@ function pyromancer_fire_bird_carddef()
                 {
                     name = "Fire Bird",
                     art = "art/epicart/fire_shaman",
-                    frame = "frames/Wizard_CardFrame",
+                    frame = "frames/wizard_cardframe",
                     xmlText=[[
 					<vlayout>
     <hlayout flexibleheight="1">
@@ -6170,7 +6870,7 @@ function pyromancer1_flame_hood_carddef()
  local cardLayout = createLayout({
         name = "Flame Hood",
         art = "avatars/summoner",
-        frame = "frames/Wizard_CardFrame",
+        frame = "frames/wizard_cardframe",
         xmlText=[[
 					
 <vlayout>
@@ -6231,7 +6931,7 @@ function pyromancer2_flame_hood_carddef()
  local cardLayout = createLayout({
         name = "Flame Hood",
         art = "avatars/summoner",
-        frame = "frames/Wizard_CardFrame",
+        frame = "frames/wizard_cardframe",
         xmlText=[[
 					
 <vlayout>
@@ -6292,7 +6992,7 @@ function pyromancer_1p_fuel_1carddef()
     local cardLayout = createLayout({
         name = "Research Phoenix Fire",
         art = "art/epicart/arcane_research",
-        frame = "frames/Wizard_CardFrame",
+        frame = "frames/wizard_cardframe",
         xmlText = format([[<vlayout>
             <hlayout flexibleheight="0.2">
                 <box flexiblewidth="0"/>
@@ -6338,7 +7038,7 @@ function pyromancer_2p_fuel_1carddef()
     local cardLayout = createLayout({
         name = "Research Phoenix Fire",
         art = "art/epicart/arcane_research",
-        frame = "frames/Wizard_CardFrame",
+        frame = "frames/wizard_cardframe",
         xmlText = format([[<vlayout>
             <hlayout flexibleheight="0.2">
                 <box flexiblewidth="0"/>
@@ -6384,7 +7084,7 @@ function pyromancer_after_burn_carddef()
     local cardLayout = createLayout({
         name = "After Burn",
         art = "icons/growing_flame",
-        frame = "frames/Wizard_CardFrame",
+        frame = "frames/wizard_cardframe",
         xmlText = [[<vlayout>
     <hlayout flexibleheight="1">
         <box flexiblewidth="1">
@@ -6424,7 +7124,7 @@ function pyromancer_1p_compulsive_research_1carddef()
     local cardLayout = createLayout({
         name = "Compulsive Research",
         art = "art/epicart/frantic_digging",
-        frame = "frames/Wizard_CardFrame",
+        frame = "frames/wizard_cardframe",
         xmlText = format([[<vlayout>
             <hlayout flexibleheight="0.2">
                 <box flexiblewidth="0"/>
@@ -6470,7 +7170,7 @@ function pyromancer_2p_compulsive_research_1carddef()
     local cardLayout = createLayout({
         name = "Compulsive Research",
         art = "art/epicart/frantic_digging",
-        frame = "frames/Wizard_CardFrame",
+        frame = "frames/wizard_cardframe",
         xmlText = format([[<vlayout>
             <hlayout flexibleheight="0.2">
                 <box flexiblewidth="0"/>
@@ -6517,7 +7217,7 @@ function pyromancer_1p_reckless_research_1carddef()
     local cardLayout = createLayout({
         name = "Reckless Research",
         art = "art/epicart/erratic_research",
-        frame = "frames/Wizard_CardFrame",
+        frame = "frames/wizard_cardframe",
         xmlText = format([[<vlayout>
             <hlayout flexibleheight="0.2">
                 <box flexiblewidth="0"/>
@@ -6565,7 +7265,7 @@ function pyromancer_2p_reckless_research_1carddef()
     local cardLayout = createLayout({
         name = "Reckless Research",
         art = "art/epicart/erratic_research",
-        frame = "frames/Wizard_CardFrame",
+        frame = "frames/wizard_cardframe",
         xmlText = format([[<vlayout>
             <hlayout flexibleheight="0.2">
                 <box flexiblewidth="0"/>
@@ -6614,7 +7314,7 @@ function pyromancer_1p_obsessive_research_1carddef()
     local cardLayout = createLayout({
         name = "Obsessive Research",
         art = "art/epicart/mystic_researcher",
-        frame = "frames/Wizard_CardFrame",
+        frame = "frames/wizard_cardframe",
         xmlText = format([[<vlayout>
             <hlayout flexibleheight="0.2">
                 <box flexiblewidth="0"/>
@@ -6669,7 +7369,7 @@ function pyromancer_2p_obsessive_research_1carddef()
     local cardLayout = createLayout({
         name = "Obsessive Research",
         art = "art/epicart/mystic_researcher",
-        frame = "frames/Wizard_CardFrame",
+        frame = "frames/wizard_cardframe",
         xmlText = format([[<vlayout>
             <hlayout flexibleheight="0.2">
                 <box flexiblewidth="0"/>
@@ -6725,7 +7425,7 @@ function pyromancer_1p_considered_research_1carddef()
     local cardLayout = createLayout({
         name = "Considered Research",
         art = "art/epicart/forbidden_research",
-        frame = "frames/Wizard_CardFrame",
+        frame = "frames/wizard_cardframe",
         xmlText = format([[<vlayout>
             <hlayout flexibleheight="0.2">
                 <box flexiblewidth="0"/>
@@ -6780,7 +7480,7 @@ function pyromancer_2p_considered_research_1carddef()
     local cardLayout = createLayout({
         name = "Considered Research",
         art = "art/epicart/forbidden_research",
-        frame = "frames/Wizard_CardFrame",
+        frame = "frames/wizard_cardframe",
         xmlText = format([[<vlayout>
             <hlayout flexibleheight="0.2">
                 <box flexiblewidth="0"/>
@@ -6836,7 +7536,7 @@ function pyromancer_1p_focussed_research_1carddef()
     local cardLayout = createLayout({
         name = "Focussed Research",
         art = "art/epicart/lesson_learned",
-        frame = "frames/Wizard_CardFrame",
+        frame = "frames/wizard_cardframe",
         xmlText = format([[<vlayout>
             <hlayout flexibleheight="0.2">
                 <box flexiblewidth="0"/>
@@ -6891,7 +7591,7 @@ function pyromancer_2p_focussed_research_1carddef()
     local cardLayout = createLayout({
         name = "Focussed Research",
         art = "art/epicart/lesson_learned",
-        frame = "frames/Wizard_CardFrame",
+        frame = "frames/wizard_cardframe",
         xmlText = format([[<vlayout>
             <hlayout flexibleheight="0.2">
                 <box flexiblewidth="0"/>
@@ -6947,7 +7647,7 @@ function pyromancer_after_burn_3a_carddef()
     local cardLayout = createLayout({
         name = "After Burn",
         art = "icons/growing_flame",
-        frame = "frames/Wizard_CardFrame",
+        frame = "frames/wizard_cardframe",
         xmlText = [[<vlayout>
     <hlayout flexibleheight="1">
         <box flexiblewidth="1">
@@ -6988,7 +7688,7 @@ function pyromancer_after_burn_3b_carddef()
     local cardLayout = createLayout({
         name = "After Burn",
         art = "icons/growing_flame",
-        frame = "frames/Wizard_CardFrame",
+        frame = "frames/wizard_cardframe",
         xmlText = [[<vlayout>
     <hlayout flexibleheight="1">
         <box flexiblewidth="1">
@@ -7039,7 +7739,7 @@ function pyromancer_after_burn_3c_carddef()
     local cardLayout = createLayout({
         name = "After Burn",
         art = "icons/growing_flame",
-        frame = "frames/Wizard_CardFrame",
+        frame = "frames/wizard_cardframe",
         xmlText = [[<vlayout>
     <hlayout flexibleheight="1">
         <box flexiblewidth="1">
@@ -7129,7 +7829,7 @@ and increases with each use of your skill." fontsize="32" flexibleheight="3"/>
         layout = createLayout({
             name = "Phoenix Frenzy",	
             art = "art/epicart/fireball",
-			frame = "frames/Wizard_CardFrame",
+			frame = "frames/wizard_cardframe",
             xmlText = format([[<vlayout>
             <hlayout flexibleheight="2">
                 <box flexiblewidth="0.2"/>
@@ -7151,7 +7851,7 @@ and increases with each use of your skill." fontsize="32" flexibleheight="3"/>
 		layout = createLayout({
             name = "Phoenix Frenzy",	
             art = "art/epicart/fireball",
-			frame = "frames/Wizard_CardFrame",
+			frame = "frames/wizard_cardframe",
             xmlText = format([[<vlayout>
             <hlayout flexibleheight="2">
                 <box flexiblewidth="0.2"/>
@@ -7187,7 +7887,7 @@ function pyromancer_phoenix_fury_1p_carddef()
 				promptType = showPrompt,
 				layout = createLayout({
             name = "Phoenix Fury",	
-            art = "art/T_pillar_of_fire",
+            art = "art/t_pillar_of_fire",
             xmlText = format([[<vlayout>
             <hlayout flexibleheight="2">
                 <box flexiblewidth="0.2"/>
@@ -7219,8 +7919,8 @@ and increases with each use of your skill." fontsize="32" flexibleheight="3"/>
 		},
         layout = createLayout({
             name = "Phoenix Fury",	
-            art = "art/T_pillar_of_fire",
-			frame = "frames/Wizard_CardFrame",
+            art = "art/t_pillar_of_fire",
+			frame = "frames/wizard_cardframe",
             xmlText = format([[<vlayout>
             <hlayout flexibleheight="2">
                 <box flexiblewidth="0.2"/>
@@ -7241,8 +7941,8 @@ and increases with each use of your skill." fontsize="32" flexibleheight="3"/>
         }),
         layout = createLayout({
             name = "Phoenix Fury",	
-            art = "art/T_pillar_of_fire",
-			frame = "frames/Wizard_CardFrame",
+            art = "art/t_pillar_of_fire",
+			frame = "frames/wizard_cardframe",
             xmlText = format([[<vlayout>
             <hlayout flexibleheight="2">
                 <box flexiblewidth="0.2"/>
@@ -7262,7 +7962,7 @@ and increases with each use of your skill." fontsize="32" flexibleheight="3"/>
 		{ getCounter("conflagration_1p") })
         }),
 			
-		layoutPath  = "art/T_pillar_of_fire",
+		layoutPath  = "art/t_pillar_of_fire",
 	})
 end	
 
@@ -7307,7 +8007,7 @@ and increases with each use of your skill." fontsize="32" flexibleheight="3"/>
         layout = createLayout({
             name = "Phoenix Flare",	
             art = "art/epicart/ascendant_pyromancer",
-			frame = "frames/Wizard_CardFrame",
+			frame = "frames/wizard_cardframe",
             xmlText = format([[<vlayout>
             <hlayout flexibleheight="2">
                 <box flexiblewidth="0.2"/>
@@ -7329,7 +8029,7 @@ and increases with each use of your skill." fontsize="32" flexibleheight="3"/>
         layout = createLayout({
             name = "Phoenix Flare",	
             art = "art/epicart/ascendant_pyromancer",
-			frame = "frames/Wizard_CardFrame",
+			frame = "frames/wizard_cardframe",
             xmlText = format([[<vlayout>
             <hlayout flexibleheight="2">
                 <box flexiblewidth="0.2"/>
@@ -7399,7 +8099,7 @@ and increases with each use of your skill." fontsize="32" flexibleheight="3"/>
         layout = createLayout({
             name = "Phoenix Flames",	
             art = "art/epicart/flames_of_furios",
-			frame = "frames/Wizard_CardFrame",
+			frame = "frames/wizard_cardframe",
             xmlText = format([[<vlayout>
             <hlayout flexibleheight="2">
                 <box flexiblewidth="0.2"/>
@@ -7435,7 +8135,7 @@ function pyromancer_spirit_of_the_phoenix_1p_carddef()
 				promptType = showPrompt,
 				layout = createLayout({
             name = "Spirit of the Phoenix",	
-            art = "art/T_darian_war_mage",
+            art = "art/t_darian_war_mage",
             xmlText = format([[<vlayout>
             <hlayout flexibleheight="2">
                 <box flexiblewidth="0.2"/>
@@ -7443,7 +8143,7 @@ function pyromancer_spirit_of_the_phoenix_1p_carddef()
                 <box flexiblewidth="0"/>
                 <vlayout flexiblewidth="6">
                     <box flexibleheight="0.2"/>
-                    <tmpro text="{combat}{health_11}
+                    <tmpro text="{combat}{health_12}
 &lt;size=65%&gt;Flip your skill to Afterburn.
 
 &lt;size=50%&gt;{combat} gained starts at {combat_5}
@@ -7467,8 +8167,8 @@ and increases with each use of your skill." fontsize="32" flexibleheight="3"/>
 		},
         layout = createLayout({
             name = "Spirit of the Phoenix",	
-            art = "art/T_darian_war_mage",
-			frame = "frames/Wizard_CardFrame",
+            art = "art/t_darian_war_mage",
+			frame = "frames/wizard_cardframe",
             xmlText = format([[<vlayout>
             <hlayout flexibleheight="2">
                 <box flexiblewidth="0.2"/>
@@ -7479,7 +8179,7 @@ and increases with each use of your skill." fontsize="32" flexibleheight="3"/>
                     <tmpro text="{0}{combat}{health_11}
 &lt;size=65%&gt;Flip your skill to Afterburn.
 
-&lt;size=50%&gt;{combat} gained starts at {combat_5}
+&lt;size=50%&gt;{combat} gained starts at {combat_9}
 and increases with each use of your skill." fontsize="32" flexibleheight="3"/>
 
                 </vlayout>
@@ -7487,7 +8187,7 @@ and increases with each use of your skill." fontsize="32" flexibleheight="3"/>
         </vlayout>]], 
 		{ getCounter("conflagration_1p") })
         }),
-        layoutPath  = "art/T_darian_war_mage",
+        layoutPath  = "art/t_darian_war_mage",
 	})
 end	
 
@@ -7533,7 +8233,7 @@ and increases with each use of your skill." fontsize="32" flexibleheight="3"/>
         layout = createLayout({
             name = "Phoenix Frenzy",	
             art = "art/epicart/fireball",
-			frame = "frames/Wizard_CardFrame",
+			frame = "frames/wizard_cardframe",
             xmlText = format([[<vlayout>
             <hlayout flexibleheight="2">
                 <box flexiblewidth="0.2"/>
@@ -7569,7 +8269,7 @@ function pyromancer_phoenix_fury_2p_carddef()
 				promptType = showPrompt,
 				layout = createLayout({
             name = "Phoenix Fury",	
-            art = "art/T_pillar_of_fire",
+            art = "art/t_pillar_of_fire",
             xmlText = format([[<vlayout>
             <hlayout flexibleheight="2">
                 <box flexiblewidth="0.2"/>
@@ -7601,8 +8301,8 @@ and increases with each use of your skill." fontsize="32" flexibleheight="3"/>
 		},
         layout = createLayout({
             name = "Phoenix Fury",	
-            art = "art/T_pillar_of_fire",
-			frame = "frames/Wizard_CardFrame",
+            art = "art/t_pillar_of_fire",
+			frame = "frames/wizard_cardframe",
             xmlText = format([[<vlayout>
             <hlayout flexibleheight="2">
                 <box flexiblewidth="0.2"/>
@@ -7621,7 +8321,7 @@ and increases with each use of your skill." fontsize="32" flexibleheight="3"/>
         </vlayout>]], 
 		{ getCounter("conflagration_2p") })
         }),
-        layoutPath  = "art/T_pillar_of_fire",
+        layoutPath  = "art/t_pillar_of_fire",
 	})
 end	
 
@@ -7666,7 +8366,7 @@ and increases with each use of your skill." fontsize="32" flexibleheight="3"/>
         layout = createLayout({
             name = "Phoenix Flare",	
             art = "art/epicart/ascendant_pyromancer",
-			frame = "frames/Wizard_CardFrame",
+			frame = "frames/wizard_cardframe",
             xmlText = format([[<vlayout>
             <hlayout flexibleheight="2">
                 <box flexiblewidth="0.2"/>
@@ -7735,7 +8435,7 @@ and increases with each use of your skill." fontsize="32" flexibleheight="3"/>
         layout = createLayout({
             name = "Phoenix Flames",	
             art = "art/epicart/flames_of_furios",
-			frame = "frames/Wizard_CardFrame",
+			frame = "frames/wizard_cardframe",
             xmlText = format([[<vlayout>
             <hlayout flexibleheight="2">
                 <box flexiblewidth="0.2"/>
@@ -7771,7 +8471,7 @@ function pyromancer_spirit_of_the_phoenix_2p_carddef()
 				promptType = showPrompt,
 				layout = createLayout({
             name = "Spirit of the Phoenix",	
-            art = "art/T_darian_war_mage",
+            art = "art/t_darian_war_mage",
             xmlText = format([[<vlayout>
             <hlayout flexibleheight="2">
                 <box flexiblewidth="0.2"/>
@@ -7803,8 +8503,8 @@ and increases with each use of your skill." fontsize="32" flexibleheight="3"/>
 		},
         layout = createLayout({
             name = "Spirit of the Phoenix",	
-            art = "art/T_darian_war_mage",
-			frame = "frames/Wizard_CardFrame",
+            art = "art/t_darian_war_mage",
+			frame = "frames/wizard_cardframe",
             xmlText = format([[<vlayout>
             <hlayout flexibleheight="2">
                 <box flexiblewidth="0.2"/>
@@ -7815,7 +8515,7 @@ and increases with each use of your skill." fontsize="32" flexibleheight="3"/>
                     <tmpro text="{0}{combat}{health_11}
 &lt;size=65%&gt;Flip your skill to Afterburn.
 
-&lt;size=50%&gt;{combat} gained starts at {combat_5}
+&lt;size=50%&gt;{combat} gained starts at {combat_9}
 and increases with each use of your skill." fontsize="32" flexibleheight="3"/>
 
                 </vlayout>
@@ -7823,7 +8523,7 @@ and increases with each use of your skill." fontsize="32" flexibleheight="3"/>
         </vlayout>]], 
 		{ getCounter("conflagration_2p") })
         }),
-        layoutPath  = "art/T_darian_war_mage",
+        layoutPath  = "art/t_darian_war_mage",
 	})
 end	
 
@@ -7840,7 +8540,7 @@ function pyromancer_play_with_fire_carddef()
                 promptType = showPrompt,
                 layout = createLayout({
             name = "Play With Fire",	
-            art = "art/T_Spreading_Sparks",
+            art = "art/t_spreading_sparks",
             xmlText = [[<vlayout>
     <box flexibleheight="9">
         <tmpro text="{combat_2}" fontsize="70"/>
@@ -7854,20 +8554,1727 @@ function pyromancer_play_with_fire_carddef()
         },
         layout = createLayout({
             name = "Play With Fire",
-            art = "art/T_Spreading_Sparks",
-			frame = "frames/Wizard_CardFrame",
+            art = "art/t_spreading_sparks",
+			frame = "frames/wizard_cardframe",
             xmlText = [[<vlayout>
     <box flexibleheight="9">
         <tmpro text="{combat_2}" fontsize="70"/>
     </box>
  </vlayout>]]
  }),
-        layoutPath  = "art/T_Spreading_Sparks",
+        layoutPath  = "art/t_spreading_sparks",
 	})
 end	
 
 
 -- End of Pyro Cards -----------------------------------------------------------------------------------------------------------------------
+
+
+-- START of Cryomancer Cards  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+function cryomancer_ice_sickle_carddef()
+    return createDef(
+        {
+            id = "cryomancer_ice_sickle",
+            name = "Ice Sickle",
+            types = {noStealType, actionType},
+            acquireCost = 0,
+            cardTypeLabel = "Action",
+            playLocation = castPloc,
+            abilities = {
+                createAbility({
+                        id = "cryomancer_ice_sickle",
+                        layout = cardLayout,
+                        effect = gainCombatEffect(2),
+                        trigger = autoTrigger,
+                        tags = {}
+                    }
+                )
+            },
+            layout = createLayout(
+                {
+                    name = "Ice Sickle",
+                    art = "art/t_longsword",
+                    frame = "frames/wizard_cardframe",
+                    xmlText=[[
+<vlayout>
+    <box flexibleheight="7">
+        <tmpro text="{combat_2}" fontsize="42"/>
+    </box>
+<divider/>
+    <box flexibleheight="3">
+        <tmpro text="Prepare for the winter harvest." fontsize="18" fontstyle="italic"/>
+    </box>
+</vlayout>
+					]],
+                }
+            )
+        }
+    )
+end
+
+function cryomancer_frostwulf_carddef()
+--This is a token champion, that self-sacrifices when it leaves play
+    return createChampionDef(
+        {
+            id = "cryomancer_frostwulf",
+            name = "Frostwulf",
+			types = {championType, nostealType },
+            acquireCost = 0,
+            health = 1,
+            isGuard = false,
+            abilities = {
+			--base ability
+                createAbility(
+                    {
+                        id = "frostwulf_main",
+                        trigger = autoTrigger,
+                        cost = expendCost,
+                        activations = multipleActivations,
+                        effect = gainCombatEffect(2)
+						
+                    }
+                )},
+            layout = createLayout(
+                {
+                    name = "Frostwulf",
+                    art = "art/epicart/den_mother",
+                    frame = "frames/wizard_cardframe",
+                    xmlText=[[
+					<vlayout>
+    <hlayout flexibleheight="1">
+        <box flexiblewidth="1">
+            <tmpro text="{expend}" fontsize="40"/>
+        </box>
+        <box flexiblewidth="7">
+            <icon text="{combat_2}" fontsize="60"/>
+</box>
+</hlayout>
+</vlayout>
+					]],
+                    health = 1,
+                    isGuard = false
+                }
+            )
+        }
+    )
+end
+
+function cryomancer_ice_gem_carddef()
+    return createDef(
+        {
+            id = "cryomancer_ice_gem",
+            name = "Ice Gem",
+            types = {gemType, noStealType, itemType},
+            acquireCost = 0,
+            cardTypeLabel = "Item",
+            playLocation = castPloc,
+            abilities = {
+                createAbility(
+                    {
+                        id = "cryomancer_ice_gem",
+                        layout = cardLayout,
+                        effect =
+                        pushChoiceEffect(
+                                {
+                                    choices = {
+                                        {
+                                            effect = gainGoldEffect(2),
+                                            layout = layoutCard(
+                                                {
+                                                    title = "Ice Gem",
+                                                    art = "art/t_wizard_alchemist_s_stone",
+                                                    xmlText=[[
+													<vlayout>
+    <hlayout flexibleheight="1">
+        <box flexiblewidth="7">
+            <tmpro text="{gold_2}&lt;size=60%&gt;" fontsize="46" />
+        </box>
+    </hlayout>
+</vlayout>
+]]
+                                                }
+                                            ),
+                                            tags = {gainGold2Tag}
+                                        },
+                                        {
+                                            effect = oppDiscardEffect(1),
+                                            layout = layoutCard(
+                                                {
+                                                    title = "Ice Gem",
+                                                    art = "art/t_wizard_alchemist_s_stone",
+                                                    xmlText=[[
+													<vlayout>
+    <hlayout flexibleheight="1">
+        <box flexiblewidth="7">
+            <tmpro text="Opponent discards a card." fontsize="26" />
+        </box>
+    </hlayout>
+</vlayout>
+													]]
+                                                }
+                                            ),
+                                                                                    }
+                                    }
+                                }
+                        ),
+                        trigger = autoTrigger,
+                        tags = {}
+                    }
+                )
+            },
+            layout = createLayout(
+                {
+                    name = "Ice Gem",
+                    art = "art/t_wizard_alchemist_s_stone",
+                    frame = "frames/wizard_cardframe",
+                    xmlText=[[
+<vlayout>
+    <box flexibleheight="1">
+        <tmpro text="{gold_2}" fontsize="42"/>
+    </box>
+    <box flexibleheight="1">
+        <tmpro text="OR
+Opponent discards a card." fontsize="22" />
+    </box>
+</vlayout>
+					]],
+                }
+            )
+        }
+    )
+end
+
+function cryomancer_freeze_carddef()
+    return createDef(
+        {
+            id = "cryomancer_freeze",
+            name = "Freeze",
+            types = {noStealType, actionType},
+            acquireCost = 0,
+            cardTypeLabel = "Action",
+            playLocation = castPloc,
+            abilities = {
+                createAbility({
+                        id = "cryomancer_freeze",
+                        layout = cardLayout,
+                        effect = pushTargetedEffect({
+												desc = "Brrr. It's cold in here. (Expend a champion.)",
+												validTargets = oppStunnableSelector(),
+												min = 0,
+												max = 1,
+												targetEffect = expendTarget().seq(gainCombatEffect(1)),
+												}),
+                        trigger = autoTrigger,
+                        tags = {}
+                    }
+                )
+            },
+            layout = createLayout(
+                {
+                    name = "Freeze",
+                    art = "art/epicart/polar_shock",
+                    frame = "frames/wizard_cardframe",
+                    xmlText=[[
+<vlayout>
+    <box flexibleheight="2">
+        <tmpro text="{combat_1}" fontsize="50"/>
+    </box>
+    <box flexibleheight="1">
+        <tmpro text="Expend a champion." fontsize="22" />
+    </box>
+</vlayout>
+					]],
+                }
+            )
+        }
+    )
+end
+
+
+--Upgrade Cards
+-- Level 5
+function cryomancer_deep_freeze_carddef()
+    return createDef(
+        {
+            id = "cryomancer_deep_freeze",
+            name = "Deep Freeze",
+            types = {noStealType, actionType},
+            acquireCost = 0,
+            cardTypeLabel = "Action",
+            playLocation = castPloc,
+            abilities = {
+                createAbility({
+                        id = "cryomancer_deep_freeze",
+                        layout = cardLayout,
+                        effect = expendTarget().apply(selectLoc(loc(oppPid, inPlayPloc))).seq(damageTarget(1).apply(selectLoc(loc(oppPid, inPlayPloc)))).seq(gainCombatEffect(1)),
+                        trigger = autoTrigger,
+                        tags = {}
+                    }
+                )
+            },
+            layout = createLayout(
+                {
+                    name = "Deep Freeze",
+                    art = "art/epicart/polar_shock",
+                    frame = "frames/wizard_cardframe",
+                    xmlText=[[
+<vlayout>
+    <box flexibleheight="2">
+        <tmpro text="{combat_1}" fontsize="50"/>
+    </box>
+	<box flexibleheight="2">
+        <tmpro text="Expend and deal 1 damage to all of opponent's  champions." fontsize="22" />
+    </box>
+</vlayout>
+					]],
+                }
+            )
+        }
+    )
+end
+
+
+function cryomancer_ice_sickles_carddef()
+    return createDef(
+        {
+            id = "cryomancer_ice_sickles",
+            name = "Ice Sickles",
+            types = {noStealType, actionType},
+            acquireCost = 0,
+            cardTypeLabel = "Action",
+            playLocation = castPloc,
+            abilities = {
+                createAbility({
+                        id = "cryomancer_ice_sickles",
+                        layout = cardLayout,
+                        effect = gainCombatEffect(2)
+								.seq(gainCombatEffect(selectLoc(loc(currentPid, inPlayPloc)).count())),
+                        trigger = autoTrigger,
+                        tags = {}
+                    }
+                )
+            },
+            layout = createLayout(
+                {
+                    name = "Ice Sickles",
+                    art = "art/epicart/shock_trooper",
+                    frame = "frames/wizard_cardframe",
+                    xmlText=[[
+<vlayout>
+    <box flexibleheight="7">
+        <tmpro text="{combat_2}" fontsize="42"/>
+    </box>
+
+<box flexibleheight="7">
+        <tmpro text="+{combat_1} for each champion you have in play" fontsize="22"/>
+    </box>
+<divider/>
+    <box flexibleheight="3">
+        <tmpro text="Welcome to the harvest." fontsize="18" fontstyle="italic"/>
+    </box>
+</vlayout>
+					]],
+                }
+            )
+        }
+    )
+end
+
+
+-- Level 7
+function cryomancer_cold_snap_carddef()
+    return createDef(
+        {
+            id = "cryomancer_cold_snap",
+            name = "Cold Snap",
+            types = {noStealType, actionType},
+            acquireCost = 0,
+            cardTypeLabel = "Action",
+            playLocation = castPloc,
+            abilities = {
+                createAbility({
+                        id = "cryomancer_cold_snap",
+                        layout = cardLayout,
+                        effect = drawCardsEffect(1)
+						.seq(hitOpponentEffect(selectLoc(loc(oppPid, deckPloc)).union(selectLoc(loc(oppPid, discardPloc))).union(selectLoc(loc(oppPid, handPloc))).where(isCardName("cryomancer_frostbite")).count())),
+                        trigger = autoTrigger,
+                        tags = {}
+                    }
+                )
+            },
+            layout = createLayout(
+                {
+                    name = "Cold Snap",
+                    art = "art/epicart/ice_drake",
+                    frame = "frames/wizard_cardframe",
+                    xmlText=[[
+<vlayout>
+    <box flexibleheight="1">
+        <tmpro text="Draw 1.
+Target opponent takes 1 damage for each Frostbite card in their hand/deck/discard pile." fontsize="24" />
+    </box>
+</vlayout>
+					]],
+                }
+            )
+        }
+    )
+end
+
+function cyromancer_polarmour_carddef()
+    return createDef(
+        {
+            id = "cyromancer_polarmour",
+            name = "Polarmour",
+            types = {noStealType, actionType},
+            acquireCost = 0,
+            cardTypeLabel = "Action",
+            playLocation = castPloc,
+            abilities = {
+			createAbility({
+                id="cyromancer_polarmour",
+                trigger= autoTrigger,
+				activations = singleActivations,
+                effect = drawCardsEffect(1)
+					.seq(pushTargetedEffect({
+												desc = "Select a champion",
+												validTargets = selectLoc(currentInPlayLoc).where(isCardChampion()),
+												min = 0,
+												max = 1,
+												targetEffect = grantHealthTarget(1, { leavesPlayExpiry }, moveTarget(loc(ownerPid, discardPloc)).apply(selectSource()).seq(hitSelfEffect(3)), "shield")			
+												}))
+					.seq(moveTarget(asidePloc).apply(selectSource())),
+
+            })
+            },
+            layout = createLayout(
+                {
+                    name = "Polarmour",
+                    art = "art/epicart/force_field",
+                    frame = "frames/wizard_cardframe",
+                    xmlText=[[
+<vlayout>
+    <box flexibleheight="1">
+        <tmpro text="Draw 1.
+Attach this to a friendly champion. It has +1{shield} and when stunned, target opponent takes 3 damage." fontsize="22" />
+    </box>
+</vlayout>
+					]],
+                }
+            )
+        }
+    )
+end
+
+
+-- Level 11
+function cryomancer_eternal_frost_carddef()
+    return createDef(
+        {
+            id = "cryomancer_eternal_frost",
+            name = "Eternal Frost",
+            types = {noStealType, actionType},
+            acquireCost = 0,
+            cardTypeLabel = "Action",
+            playLocation = castPloc,
+            abilities = {
+                createAbility({
+                        id = "cryomancer_eternal_frost",
+                        layout = cardLayout,
+                        effect = drawCardsEffect(1)
+						.seq(createCardEffect(cryomancer_frostbite_carddef(), loc(oppPid, discardPloc))),
+                        trigger = autoTrigger,
+                        tags = {}
+                    }
+                )
+            },
+            layout = createLayout(
+                {
+                    name = "Eternal Frost",
+                    art = "art/epicart/forced_exile",
+                    frame = "frames/wizard_cardframe",
+                    xmlText=[[
+<vlayout>
+    <box flexibleheight="7">
+        <tmpro text="Draw 1
+
+Add a frostbite card to opponent's discard." fontsize="24"/>
+    </box>
+</vlayout>
+					]],
+                }
+            )
+        }
+    )
+end
+
+function cyromancer_cryonics_carddef()
+
+    return createDef(
+        {
+            id = "cyromancer_cryonics",
+            name = "Cryonics",
+            types = {noStealType, actionType},
+            acquireCost = 0,
+            cardTypeLabel = "Action",
+            playLocation = castPloc,
+            abilities = {
+			createAbility({
+                id="cyromancer_cryonics",
+                trigger= autoTrigger,
+				activations = singleActivations,
+				effect = pushTargetedEffect({
+												  desc = "Put a champion from your discard pile to the bottom of your deck. It gets +3{shield} until it leaves play.",
+												  min=0,
+												  max=1,
+												  validTargets = selectLoc(loc(currentPid, discardPloc)).where(isCardChampion()),
+												  targetEffect = grantHealthTarget(3, { leavesPlayExpiry }, nullEffect(), "shield").seq(moveToBottomDeckTarget(false, 0)).seq(drawCardsEffect(1))
+												  })
+						
+
+            })
+            },
+            layout = createLayout(
+                {
+                    name = "Cryonics",
+                    art = "art/epicart/transfigure",
+                    frame = "frames/wizard_cardframe",
+                    xmlText=[[
+<vlayout>
+    <box flexibleheight="1">
+        <tmpro text="Put a champion from your discard pile to the bottom of your deck. It gets +3{shield} until it leaves play.
+
+Draw 1." fontsize="22" />
+    </box>
+</vlayout>
+					]],
+                }
+            )
+        }
+    )
+end
+
+
+-- Armour
+
+function cryomancer_ice_mail_carddef()
+
+    local priceBuff = getCostDiscountBuff("brewmaster_serve_the_strong_stuff_buff", 1, selectSavedTargets("Frozen Asset"))
+	
+	    local discountCreator = createGlobalBuff({
+        id="ice_mail_discount",
+        name = "Ice Mail",
+        abilities = {
+            createAbility({
+                id="ice_mail_buff",
+                trigger = startOfTurnTrigger,
+                effect = createCardEffect(priceBuff, loc(currentPid, buffsPloc)).seq(clearTargets("Frozen Asset")).seq(sacrificeSelf())
+            })
+        },
+		buffDetails = createBuffDetails({
+					name = "Ice Mail",
+                    art = "art/epicart/crystal_golem",
+					text = "<size=65%><sprite name=\"gold_1\"> discount for 1 card in the market marked as a Frozen Asset."
+							})
+		
+    })
+	
+    local buffCreator = createGlobalBuff({
+        id="ice_mail_buff",
+        name = "Ice Mail",
+        abilities = {
+            createAbility({
+                id="ice_mail_buff",
+                trigger = startOfTurnTrigger,
+                effect = addSlotToTarget(createSlot({ id = slotNoBuy, expiresArray = { endOfTurnExpiry } })).apply(selectSavedTargets("Frozen Asset")).seq(sacrificeSelf())
+				
+            })
+        },
+		buffDetails = createBuffDetails({
+					name = "Ice Mail",
+                    art = "art/epicart/crystal_golem",
+					text = "<size=65%>One card has become a Frozen Asset. You cannot buy it this turn."
+							})
+		
+    })
+
+ local cardLayout = createLayout({
+        name = "Ice Mail",
+        art = "art/epicart/crystal_golem",
+        frame = "frames/wizard_cardframe",
+        xmlText=[[
+					
+<vlayout>
+    <hlayout flexibleheight="1">
+        <box flexiblewidth="1">
+            <tmpro text="{requiresHealth_40}" fontsize="60"/>
+        </box>
+        <box flexiblewidth="5">
+            <tmpro text="Choose a card in the market. Your opponent can't buy it on their next turn. It will cost you {gold_1} less to buy on your next turn." fontsize="20" />
+        </box>
+    </hlayout>
+</vlayout>
+					]]
+    })
+	
+    return createMagicArmorDef(
+        {
+            id = "cryomancer_ice_mail",
+            name = "Ice Mail",
+            types = {magicArmorType, noStealType, itemType},
+			            acquireCost = 0,
+            cardTypeLabel = "Armour",
+			layout = cardLayout,
+			layoutPath  = "art/epicart/crystal_golem",
+            playLocation = castPloc,
+            abilities = {
+				createAbility(
+                    {
+                        id = "cryomancer_ice_mail",
+						cost = expendCost,
+						trigger = uiTrigger,
+						promptType = showPrompt,
+						layout = cardLayout,
+                        activations = singleActivations,
+						effect = pushTargetedEffect({
+												  desc = "Freeze a card in the market. Your opponent can't buy it next turn. It will cost you 1 gold less to buy on your next turn.",
+												  min=1,
+												  max=1,
+												  validTargets = selectLoc(centerRowLoc),
+												  targetEffect = saveTarget("Frozen Asset")
+																.seq(createCardEffect(buffCreator, loc(oppPid, buffsPloc)))
+																.seq(createCardEffect(discountCreator, loc(currentPid, buffsPloc)))
+																
+																
+						}),
+				
+						check= minHealthCurrent(40),
+                        tags = {}
+                    }
+                ),
+	
+            },
+            
+			
+        }
+    )
+end
+
+function cryomancer_ice_crown_carddef()
+
+ local cardLayout = createLayout({
+        name = "Ice Crown",
+        art = "art/classes/necromancer/rotting_crown",
+        frame = "frames/wizard_cardframe",
+        xmlText=[[
+					
+<vlayout>
+    <hlayout flexibleheight="1">
+        <box flexiblewidth="1">
+            <tmpro text="{requiresHealth_35}" fontsize="60"/>
+        </box>
+        <box flexiblewidth="5">
+            <tmpro text="If you stunned a champion or played a champion this turn, draw 1." fontsize="20" />
+        </box>
+    </hlayout>
+</vlayout>
+					]]
+    })
+	
+    return createMagicArmorDef(
+        {
+            id = "cryomancer_ice_crown",
+            name = "Ice crown",
+            types = {magicArmorType, noStealType, itemType},
+			            acquireCost = 0,
+            cardTypeLabel = "Armour",
+			layout = cardLayout,
+			layoutPath  = "art/classes/necromancer/rotting_crown",
+            playLocation = castPloc,
+            abilities = {
+				createAbility(
+                    {
+                        id = "cryomancer_ice_crown",
+						cost = expendCost,
+						trigger = uiTrigger,
+						promptType = showPrompt,
+						layout = cardLayout,
+                        activations = singleActivations,
+						effect = drawCardsEffect(1),
+						check= minHealthCurrent(35)
+						.And(selectLoc(loc(oppPid, discardPloc)).where(isCardChampion()).where(isCardStunned()).count().gte(1))
+						.Or(minHealthCurrent(35)
+						.And(getChampionsPlayedThisTurn().gte(1))),
+                        tags = {}
+                    }
+                ),
+	
+            },
+            
+			
+        }
+    )
+end
+
+-- Skills
+
+--START skills - Frostbite (for level 3 heroes) (Skill-1)
+function cryomancer_frostbiteskill_carddef()
+    local cardLayout = createLayout({
+        name = "Frostbite",
+        art = "art/epicart/frost_giant",
+        frame = "frames/wizard_cardframe",
+        xmlText = 
+		[[
+		<vlayout>
+    <hlayout flexibleheight="2">
+            <icon text="{expend_2}" fontsize="72" flexiblewidth="0"/>
+            <tmpro text="Add a frostbite card to opponent's discard." fontsize="20" flexiblewidth="10" />
+    </hlayout>
+    <divider/>
+    <hlayout flexibleheight="2">
+            <tmpro text="Frostbite card: {scrap} {health_-1}" fontsize="20" flexiblewidth="10" />
+    </hlayout> 
+</vlayout>
+		]]
+    })
+
+    return createSkillDef({
+        id = "cryomancer_frostbiteskill_skill",
+        name = "Frostbite",
+        types = { skillType },
+        layout = cardLayout,
+        layoutPath = "art/epicart/frost_giant",
+        abilities = {
+            createAbility({
+                id = "cryomancer_frostbiteskill_ab",
+                trigger = uiTrigger,
+                activations = singleActivation,
+                layout = cardLayout,
+				promptType = showPrompt,
+                effect = createCardEffect(cryomancer_frostbite_carddef(), loc(oppPid, discardPloc)),
+				cost = goldCost(2),
+            }),
+        }
+        
+    })
+end
+
+function cryomancer_frostbite_carddef()
+-- Frostbite CARD v1.03
+    return createDef(
+        {
+            id = "cryomancer_frostbite",
+            name = "Frostbite",
+            types = {noStealType, actionType},
+            acquireCost = 0,
+            cardTypeLabel = "Action",
+			playLocation = castPloc,
+            abilities = {
+                createAbility({
+                        id = "cryomancer_frostbite",
+                        layout = cardLayout,
+                        effect = hitSelfEffect(1),
+						cost = sacrificeSelfCost,
+                        trigger = autoTrigger,
+						playAllType = noPlayPlayType,
+                        tags = {}
+                    }
+                )
+            },
+            layout = createLayout(
+                {
+                    name = "Frostbite",
+                    art = "art/epicart/frost_giant",
+                    frame = "frames/wizard_cardframe",
+                    xmlText = [[
+<vlayout forceheight="false" spacing="6">
+<hlayout spacing="10">
+<icon text="{scrap}" fontsize="60"/>
+<icon text="{health_-1}" fontsize="60"/>
+</hlayout>
+</vlayout>
+]],
+                }
+            )
+        }
+    )
+end
+ 
+-- START Rapid Frostbite (Skill-2a)
+function cryomancer_rapid_frostbiteskill_carddef()
+    local cardLayout = createLayout({
+        name = "Rapid Frostbite",
+        art = "art/epicart/frost_giant",
+        frame = "frames/wizard_cardframe",
+        xmlText = 
+		[[
+		<vlayout>
+    <hlayout flexibleheight="2">
+            <icon text="{expend_2}" fontsize="72" flexiblewidth="0"/>
+            <tmpro text="Add a frostbite card to the top of opponent's deck." fontsize="20" flexiblewidth="10" />
+    </hlayout>
+    <divider/>
+    <hlayout flexibleheight="2">
+            <tmpro text="Frostbite card: {scrap} {health_-1}" fontsize="20" flexiblewidth="10" />
+    </hlayout> 
+</vlayout>
+		]]
+    })
+
+    return createSkillDef({
+        id = "cryomancer_deep_frostbiteskill",
+        name = "Rapid Frostbite",
+        types = { skillType },
+        layout = cardLayout,
+        layoutPath = "art/epicart/frost_giant",
+        abilities = {
+            createAbility({
+                id = "cryomancer_rapid_frostbiteskill_ab",
+                trigger = uiTrigger,
+                activations = singleActivation,
+                layout = cardLayout,
+				promptType = showPrompt,
+                effect = createCardEffect(cryomancer_frostbite_carddef(), loc(oppPid, deckPloc)),
+				cost = goldCost(2),
+            }),
+        }
+        
+    })
+end
+
+-- START Deep Frostbite (Skill-2b)
+function cryomancer_deep_frostbiteskill_carddef()
+    local cardLayout = createLayout({
+        name = "Deep Frostbite",
+        art = "art/epicart/frost_giant",
+        frame = "frames/wizard_cardframe",
+        xmlText = 
+		[[
+		<vlayout>
+    <hlayout flexibleheight="2">
+            <icon text="{expend_2}" fontsize="72" flexiblewidth="0"/>
+            <tmpro text="Add 2 frostbite cards to opponent's discard." fontsize="20" flexiblewidth="10" />
+    </hlayout>
+    <divider/>
+    <hlayout flexibleheight="2">
+            <tmpro text="Frostbite card: {scrap} {health_-1}" fontsize="20" flexiblewidth="10" />
+    </hlayout> 
+</vlayout>
+		]]
+    })
+
+    return createSkillDef({
+        id = "cryomancer_deep_frostbiteskill",
+        name = "Deep Frostbite",
+        types = { skillType },
+        layout = cardLayout,
+        layoutPath = "art/epicart/frost_giant",
+        abilities = {
+            createAbility({
+                id = "cryomancer_deep_frostbiteskill_ab",
+                trigger = uiTrigger,
+                activations = singleActivation,
+                layout = cardLayout,
+				promptType = showPrompt,
+                effect = createCardEffect(cryomancer_frostbite_carddef(), loc(oppPid, discardPloc)).seq(createCardEffect(cryomancer_frostbite_carddef(), loc(oppPid, discardPloc))),
+				cost = goldCost(2),
+            }),
+        }
+        
+    })
+end
+
+
+
+-- START Instant Frostbite (Skill-3a)
+function cryomancer_instant_frostbiteskill_carddef()
+    local cardLayout = createLayout({
+        name = "Instant Frostbite",
+        art = "art/epicart/frost_giant",
+        frame = "frames/wizard_cardframe",
+        xmlText = 
+		[[
+		<vlayout>
+    <hlayout flexibleheight="2">
+            <icon text="{expend_1}" fontsize="72" flexiblewidth="0"/>
+            <tmpro text="Add a frostbite card to the top of opponent's deck." fontsize="20" flexiblewidth="10" />
+    </hlayout>
+    <divider/>
+    <hlayout flexibleheight="2">
+            <tmpro text="Frostbite card: {scrap} {health_-1}" fontsize="20" flexiblewidth="10" />
+    </hlayout> 
+</vlayout>
+		]]
+    })
+
+    return createSkillDef({
+        id = "cryomancer_instant_frostbiteskill",
+        name = "Instant Frostbite",
+        types = { skillType },
+        layout = cardLayout,
+        layoutPath = "art/epicart/frost_giant",
+        abilities = {
+            createAbility({
+                id = "cryomancer_instant_frostbiteskill_ab",
+                trigger = uiTrigger,
+                activations = singleActivation,
+                layout = cardLayout,
+				promptType = showPrompt,
+                effect = createCardEffect(cryomancer_frostbite_carddef(), loc(oppPid, castPloc)).seq(moveTargetWithLocAndPlayer(deckPloc, oppPid).apply(selectLoc(loc(oppPid, castPloc)).where(isCardName("cryomancer_frostbite")).take(1))),
+				cost = goldCost(1),
+            }),
+        }
+        
+    })
+end
+
+-- START Severe Frostbite (Skill-3b)
+function cryomancer_severe_frostbiteskill_carddef()
+    local cardLayout = createLayout({
+        name = "Severe Frostbite",
+        art = "art/epicart/frost_giant",
+        frame = "frames/wizard_cardframe",
+        xmlText = 
+		[[
+		<vlayout>
+    <hlayout flexibleheight="2">
+            <icon text="{expend_2}" fontsize="72" flexiblewidth="0"/>
+            <tmpro text="Add 1 frostbite card to opponent's discard and another to the top of their deck." fontsize="20" flexiblewidth="10" />
+    </hlayout>
+    <divider/>
+    <hlayout flexibleheight="2">
+            <tmpro text="Frostbite card: {scrap} {health_-1}" fontsize="20" flexiblewidth="10" />
+    </hlayout> 
+</vlayout>
+		]]
+    })
+
+    return createSkillDef({
+        id = "cryomancer_severe_frostbiteskill",
+        name = "Severe Frostbite",
+        types = { skillType },
+        layout = cardLayout,
+        layoutPath = "art/epicart/frost_giant",
+        abilities = {
+            createAbility({
+                id = "cryomancer_severe_frostbiteskill_ab",
+                trigger = uiTrigger,
+                activations = singleActivation,
+                layout = cardLayout,
+				promptType = showPrompt,
+                effect = createCardEffect(cryomancer_frostbite_carddef(), loc(oppPid, castPloc)).seq(moveTargetWithLocAndPlayer(deckPloc, oppPid).apply(selectLoc(loc(oppPid, castPloc)).where(isCardName("cryomancer_frostbite")).take(1)))
+				.seq(createCardEffect(cryomancer_frostbite_carddef(), loc(oppPid, discardPloc))),
+				cost = goldCost(2),
+            }),
+        }
+        
+    })
+end
+
+-- START Extreme Frostbite (Skill-3c)
+function cryomancer_extreme_frostbiteskill_carddef()
+    local cardLayout = createLayout({
+        name = "Extreme Frostbite",
+        art = "art/epicart/frost_giant",
+        frame = "frames/wizard_cardframe",
+        xmlText = 
+		[[
+		<vlayout>
+    <hlayout flexibleheight="2">
+            <icon text="{expend_2}" fontsize="72" flexiblewidth="0"/>
+            <tmpro text="{combat_2}
+&lt;size=65%&gt;Add 2 frostbite cards to opponent's discard." fontsize="30" flexiblewidth="10" />
+    </hlayout>
+    <divider/>
+    <hlayout flexibleheight="2">
+            <tmpro text="Frostbite card: {scrap} {health_-1}" fontsize="20" flexiblewidth="10" />
+    </hlayout> 
+</vlayout>
+		]]
+    })
+
+    return createSkillDef({
+        id = "cryomancer_extreme_frostbiteskill",
+        name = "Extreme Frostbite",
+        types = { skillType },
+        layout = cardLayout,
+        layoutPath = "art/epicart/frost_giant",
+        abilities = {
+            createAbility({
+                id = "cryomancer_extreme_frostbiteskill_ab",
+                trigger = uiTrigger,
+                activations = singleActivation,
+                layout = cardLayout,
+				promptType = showPrompt,
+                effect = createCardEffect(cryomancer_frostbite_carddef(), loc(oppPid, discardPloc)).seq(createCardEffect(cryomancer_frostbite_carddef(), loc(oppPid, discardPloc))).seq(gainCombatEffect(2)),
+				cost = goldCost(2),
+            }),
+        }
+        
+    })
+end
+
+
+-- Abilities
+
+local CryoFogBuff = createGlobalBuff({
+        id="cryomancer_fog_ability",
+        name = "Fog",
+        abilities = {
+            createAbility({
+                id="cryomancer_fog_ability",
+                trigger = deckShuffledTrigger,
+                effect = moveToBottomDeckTarget(false, 0).apply(selectSavedTargets("Fog")).seq(clearTargets("Fog")).seq(sacrificeSelf())
+            })
+        },
+		buffDetails = createBuffDetails({
+					name = "Fog",
+                    art = "art/t_blow_away",
+					text = "One of your cards has been set aside. It will be placed on the bottom of your deck when you next shuffle."
+							})
+    })
+
+local CryoHvFogBuff = createGlobalBuff({
+        id="cryomancer_heavy_fog_ability",
+        name = "Heavy Fog",
+        abilities = {
+            createAbility({
+                id="cryomancer_heavy_fog_ability",
+                trigger = deckShuffledTrigger,
+                effect = moveToBottomDeckTarget(false, 0).apply(selectSavedTargets("Heavy Fog")).seq(clearTargets("Heavy Fog")).seq(sacrificeSelf())
+            })
+        },
+		buffDetails = createBuffDetails({
+					name = "Heavy Fog",
+                    art = "art/t_blow_away",
+					text = "One of your cards has been set aside. It will be placed on the bottom of your deck when you next shuffle."
+							})
+    })
+
+local CryoFrFogBuff = createGlobalBuff({
+        id="cryomancer_freezing_fog_ability",
+        name = "Freezing Fog",
+        abilities = {
+            createAbility({
+                id="cryomancer_freezing_fog_ability",
+                trigger = deckShuffledTrigger,
+                effect = moveToBottomDeckTarget(false, 0).apply(selectSavedTargets("Freezing Fog")).seq(clearTargets("Freezing Fog")).seq(sacrificeSelf())
+            })
+        },
+		buffDetails = createBuffDetails({
+					name = "Freezing Fog",
+                    art = "art/t_chaotic_gust",
+					text = "One of your cards has been set aside. It will be placed on the bottom of your deck when you next shuffle."
+							})
+    })
+
+local CryoHFBuff = createGlobalBuff({
+        id="cryomancer_hoarfrost_ability",
+        name = "Hoarfrost",
+        abilities = {
+            createAbility({
+                id="cryomancer_hoarfrost_ability",
+                trigger = deckShuffledTrigger,
+                effect = moveToBottomDeckTarget(false, 0).apply(selectSavedTargets("Hoarfrost")).seq(clearTargets("Hoarfrost")).seq(sacrificeSelf())
+            })
+        },
+		buffDetails = createBuffDetails({
+					name = "Hoarfrost",
+                    art = "art/t_chaotic_gust",
+					text = "One of your cards has been set aside. It will be placed on the bottom of your deck when you next shuffle."
+							})
+    })
+	
+local CryoSSBuff = createGlobalBuff({
+        id="cryomancer_snow_sqall_ability",
+        name = "Snow Squall",
+        abilities = {
+            createAbility({
+                id="cryomancer_snow_sqall_ability",
+                trigger = deckShuffledTrigger,
+                effect = moveToBottomDeckTarget(false, 0).apply(selectSavedTargets("Snow Squall")).seq(clearTargets("Snow Squall")).seq(sacrificeSelf())
+            })
+        },
+		buffDetails = createBuffDetails({
+					name = "Snow Squall",
+                    art = "art/t_chaotic_gust",
+					text = "One of your cards has been set aside. It will be placed on the bottom of your deck when you next shuffle."
+							})
+    })
+	
+local CryoISBuff = createGlobalBuff({
+        id="cryomancer_ice_sheet_ability",
+        name = "Ice Sheet",
+        abilities = {
+            createAbility({
+                id="cryomancer_ice_sheet_ability",
+                trigger = deckShuffledTrigger,
+                effect = moveToBottomDeckTarget(false, 0).apply(selectSavedTargets("Ice Sheet")).seq(clearTargets("Ice Sheet")).seq(sacrificeSelf())
+            })
+        },
+		buffDetails = createBuffDetails({
+					name = "Ice Sheet",
+                    art = "art/t_chaotic_gust",
+					text = "One of your cards has been set aside. It will be placed on the bottom of your deck when you next shuffle."
+							})
+    })
+	
+local CryoIFBuff = createGlobalBuff({
+        id="cryomancer_ice_floe_ability",
+        name = "Ice Floe",
+        abilities = {
+            createAbility({
+                id="cryomancer_ice_floe_ability",
+                trigger = deckShuffledTrigger,
+                effect = moveToBottomDeckTarget(false, 0).apply(selectSavedTargets("Ice Floe")).seq(clearTargets("Ice Floe")).seq(sacrificeSelf())
+            })
+        },
+		buffDetails = createBuffDetails({
+					name = "Ice Floe",
+                    art = "art/t_chaotic_gust",
+					text = "One of your cards has been set aside. It will be placed on the bottom of your deck when you next shuffle."
+							})
+    })
+	
+local CryoPFBuff = createGlobalBuff({
+        id="cryomancer_permafrost_ability",
+        name = "Permafrost",
+        abilities = {
+            createAbility({
+                id="cryomancer_permafrost_ability",
+                trigger = deckShuffledTrigger,
+                effect = moveToBottomDeckTarget(false, 0).apply(selectSavedTargets("Permafrost")).seq(clearTargets("Permafrost")).seq(sacrificeSelf())
+            })
+        },
+		buffDetails = createBuffDetails({
+					name = "Permafrost",
+                    art = "art/t_chaotic_gust",
+					text = "One of your cards has been set aside. It will be placed on the bottom of your deck when you next shuffle."
+							})
+    })
+	
+--1 Fog
+function cryomancer_fog_carddef()
+	return createHeroAbilityDef({
+		id = "cryomancer_fog",
+		name = "Fog",
+		types = { heroAbilityType },
+        abilities = {
+			createAbility({
+				id = "fog_Activate",
+				trigger = uiTrigger,
+				promptType = showPrompt,
+				layout = createLayout({
+					name = "Fog",
+					art = "art/t_blow_away",
+					frame = "frames/wizard_cardframe",
+					xmlText=[[
+					<vlayout>
+    <hlayout flexibleheight="1">
+        <box flexiblewidth="1">
+            <tmpro text="{scrap}" fontsize="40"/>
+        </box>
+        <box flexiblewidth="7">
+            <tmpro text="Set aside a card of cost 2{gold} or less in your opponent's discard pile. The next time your opponent shuffles their deck, put that card on the bottom of their deck." fontsize="18" />
+        </box>
+    </hlayout>
+</vlayout>
+					]]
+				}),
+				effect = pushTargetedEffect({
+												  desc = "Set aside a card of cost 2 or less from opponent's discard pile.",
+												  min=0,
+												  max=1,
+												  validTargets = selectLoc(loc(oppPid, discardPloc)).where(getCardCost().lte(2)),
+												  targetEffect = saveTarget("Fog").seq(moveTarget(sacrificePloc))
+																.seq(createCardEffect(CryoFogBuff, loc(oppPid, buffsPloc)))
+												  }),
+				cost = sacrificeSelfCost
+			})
+		},
+        layout = createLayout({
+            name = "Fog",	
+            art = "art/t_blow_away",
+			frame = "frames/wizard_cardframe",
+            xmlText=[[
+<vlayout>
+    <hlayout flexibleheight="1">
+        <box flexiblewidth="1">
+            <tmpro text="{scrap}" fontsize="40"/>
+        </box>
+        <box flexiblewidth="7">
+            <tmpro text="Set aside a card of cost 2{gold} or less in your opponent's discard pile. The next time your opponent shuffles their deck, put that card on the bottom of their deck." fontsize="18" />
+        </box>
+    </hlayout>
+</vlayout>
+			]]
+        }),
+        layoutPath  = "art/t_blow_away",
+	})
+end	
+
+--2 Heavy Fog
+function cryomancer_heavy_fog_carddef()
+	return createHeroAbilityDef({
+		id = "cryomancer_heavy_fog",
+		name = "Heavy Fog",
+		types = { heroAbilityType },
+        abilities = {
+			createAbility({
+				id = "heavy_fog_Activate",
+				trigger = uiTrigger,
+				promptType = showPrompt,
+				layout = createLayout({
+					name = "Heavy Fog",
+					art = "art/t_blow_away",
+					frame = "frames/wizard_cardframe",
+					xmlText=[[
+					<vlayout>
+    <hlayout flexibleheight="2">
+            <icon text="{scrap}" fontsize="32" flexiblewidth="0"/>
+            <tmpro text="Put Frostbite card on top of opponent's deck.
+
+Set aside a card of cost 2{gold} or less in your opponent's discard pile. The next time your opponent shuffles their deck, put that card on the bottom of their deck." fontsize="14" flexiblewidth="10" />
+    </hlayout>
+    <divider/>
+    <hlayout flexibleheight="0.5">
+            <tmpro text="Frostbite card: {scrap} {health_-1}" fontsize="14" flexiblewidth="10" />
+    </hlayout> 
+</vlayout>
+					]]
+				}),
+				effect = pushTargetedEffect({
+												  desc = "Set aside a card of cost 2 or less from opponent's discard pile.",
+												  min=0,
+												  max=1,
+												  validTargets = selectLoc(loc(oppPid, discardPloc)).where(getCardCost().lte(2)),
+												  targetEffect = saveTarget("Heavy Fog").seq(moveTarget(sacrificePloc))
+																.seq(createCardEffect(CryoHvFogBuff, loc(oppPid, buffsPloc)))
+																.seq(createCardEffect(cryomancer_frostbite_carddef(), loc(oppPid, castPloc))).seq(moveTargetWithLocAndPlayer(deckPloc, oppPid).apply(selectLoc(loc(oppPid, castPloc)).where(isCardName("cryomancer_frostbite")).take(1)))
+												  }),
+				cost = sacrificeSelfCost
+			})
+		},
+        layout = createLayout({
+            name = "Heavy Fog",	
+            art = "art/t_blow_away",
+			frame = "frames/wizard_cardframe",
+            xmlText=[[
+<vlayout>
+    <hlayout flexibleheight="2">
+            <icon text="{scrap}" fontsize="32" flexiblewidth="0"/>
+            <tmpro text="Put Frostbite card on top of opponent's deck.
+
+Set aside a card of cost 2{gold} or less in your opponent's discard pile. The next time your opponent shuffles their deck, put that card on the bottom of their deck." fontsize="14" flexiblewidth="10" />
+    </hlayout>
+    <divider/>
+    <hlayout flexibleheight="0.5">
+            <tmpro text="Frostbite card: {scrap} {health_-1}" fontsize="14" flexiblewidth="10" />
+    </hlayout> 
+</vlayout>
+			]]
+        }),
+        layoutPath  = "art/t_blow_away",
+	})
+end	
+
+
+--3 Freezing Fog
+
+function cryomancer_freezing_fog_carddef()
+	return createHeroAbilityDef({
+		id = "cryomancer_freezing_fog",
+		name = "Freezing Fog",
+		types = { heroAbilityType },
+        abilities = {
+			createAbility({
+				id = "Freezing_fog_Activate",
+				trigger = uiTrigger,
+				promptType = showPrompt,
+				layout = createLayout({
+					name = "Freezing Fog",
+					art = "art/t_chaotic_gust",
+					frame = "frames/wizard_cardframe",
+					xmlText=[[
+					<vlayout>
+    <hlayout flexibleheight="2">
+            <icon text="{scrap}" fontsize="32" flexiblewidth="0"/>
+            <tmpro text="Put Frostbite card on top of opponent's deck.
+
+Set aside a card of cost 4{gold} or less in your opponent's discard pile. The next time your opponent shuffles their deck, put that card on the bottom of their deck." fontsize="14" flexiblewidth="10" />
+    </hlayout>
+    <divider/>
+    <hlayout flexibleheight="0.5">
+            <tmpro text="Frostbite card: {scrap} {health_-1}" fontsize="14" flexiblewidth="10" />
+    </hlayout> 
+</vlayout>
+					]]
+				}),
+				effect = pushTargetedEffect({
+												  desc = "Set aside a card of cost 4 or less from opponent's discard pile.",
+												  min=0,
+												  max=1,
+												  validTargets = selectLoc(loc(oppPid, discardPloc)).where(getCardCost().lte(4)),
+												  targetEffect = saveTarget("Freezing Fog").seq(moveTarget(sacrificePloc))
+																.seq(createCardEffect(CryoFrFogBuff, loc(oppPid, buffsPloc)))
+																.seq(createCardEffect(cryomancer_frostbite_carddef(), loc(oppPid, castPloc))).seq(moveTargetWithLocAndPlayer(deckPloc, oppPid).apply(selectLoc(loc(oppPid, castPloc)).where(isCardName("cryomancer_frostbite")).take(1)))
+												  }),
+				cost = sacrificeSelfCost
+			})
+		},
+        layout = createLayout({
+            name = "Freezing Fog",	
+            art = "art/t_chaotic_gust",
+			frame = "frames/wizard_cardframe",
+            xmlText=[[
+<vlayout>
+    <hlayout flexibleheight="2">
+            <icon text="{scrap}" fontsize="32" flexiblewidth="0"/>
+            <tmpro text="Put Frostbite card on top of opponent's deck.
+
+Set aside a card of cost 4{gold} or less in your opponent's discard pile. The next time your opponent shuffles their deck, put that card on the bottom of their deck." fontsize="14" flexiblewidth="10" />
+    </hlayout>
+    <divider/>
+    <hlayout flexibleheight="0.5">
+            <tmpro text="Frostbite card: {scrap} {health_-1}" fontsize="14" flexiblewidth="10" />
+    </hlayout> 
+</vlayout>
+			]]
+        }),
+        layoutPath  = "art/t_chaotic_gust",
+	})
+end	
+
+
+-- START Ability upgrades
+
+--4a Hoarfrost
+function cryomancer_hoarfrost_carddef()
+	return createHeroAbilityDef({
+		id = "cryomancer_hoarfrost",
+		name = "Hoarfrost",
+		types = { heroAbilityType },
+        abilities = {
+			createAbility({
+				id = "hoarfrost_Activate",
+				trigger = uiTrigger,
+				promptType = showPrompt,
+				layout = createLayout({
+					name = "Hoarfrost",
+					art = "art/t_chaotic_gust",
+					frame = "frames/wizard_cardframe",
+					xmlText=[[
+					<vlayout>
+    <hlayout flexibleheight="2">
+            <icon text="{scrap}" fontsize="32" flexiblewidth="0"/>
+            <tmpro text="Put Frostbite card on top of opponent's deck.
+
+Set aside a card of cost 6{gold} or less in your opponent's discard pile. The next time your opponent shuffles their deck, put that card on the bottom of their deck." fontsize="14" flexiblewidth="10" />
+    </hlayout>
+    <divider/>
+    <hlayout flexibleheight="0.5">
+            <tmpro text="Frostbite card: {scrap} {health_-1}" fontsize="14" flexiblewidth="10" />
+    </hlayout> 
+</vlayout>
+					]]
+				}),
+				effect = pushTargetedEffect({
+												  desc = "Set aside a card of cost 6 or less from opponent's discard pile.",
+												  min=0,
+												  max=1,
+												  validTargets = selectLoc(loc(oppPid, discardPloc)).where(getCardCost().lte(6)),
+												  targetEffect = saveTarget("Hoarfrost").seq(moveTarget(sacrificePloc))
+																.seq(createCardEffect(CryoHFBuff, loc(oppPid, buffsPloc)))
+																.seq(createCardEffect(cryomancer_frostbite_carddef(), loc(oppPid, castPloc))).seq(moveTargetWithLocAndPlayer(deckPloc, oppPid).apply(selectLoc(loc(oppPid, castPloc)).where(isCardName("cryomancer_frostbite")).take(1)))
+												  }),
+				cost = sacrificeSelfCost
+			})
+		},
+        layout = createLayout({
+            name = "Hoarfrost",	
+            art = "art/t_chaotic_gust",
+			frame = "frames/wizard_cardframe",
+            xmlText=[[
+<vlayout>
+    <hlayout flexibleheight="2">
+            <icon text="{scrap}" fontsize="32" flexiblewidth="0"/>
+            <tmpro text="Put Frostbite card on top of opponent's deck.
+
+Set aside a card of cost 6{gold} or less in your opponent's discard pile. The next time your opponent shuffles their deck, put that card on the bottom of their deck." fontsize="14" flexiblewidth="10" />
+    </hlayout>
+    <divider/>
+    <hlayout flexibleheight="0.5">
+            <tmpro text="Frostbite card: {scrap} {health_-1}" fontsize="14" flexiblewidth="10" />
+    </hlayout> 
+</vlayout>
+			]]
+        }),
+        layoutPath  = "art/t_chaotic_gust",
+	})
+end	
+
+
+--5a Snow squall
+function cryomancer_snow_squall_carddef()
+	return createHeroAbilityDef({
+		id = "cryomancer_snow_squall",
+		name = "Snow Squall",
+		types = { heroAbilityType },
+        abilities = {
+			createAbility({
+				id = "snow_squall_Activate",
+				trigger = uiTrigger,
+				promptType = showPrompt,
+				layout = createLayout({
+					name = "Snow Squall",
+					art = "art/t_chaotic_gust",
+					frame = "frames/wizard_cardframe",
+					xmlText=[[
+					<vlayout>
+    <hlayout flexibleheight="2">
+            <icon text="{scrap}" fontsize="32" flexiblewidth="0"/>
+            <tmpro text="Put Frostbite card on top of opponent's deck.
+
+Set aside a card of cost 8{gold} or less in your opponent's discard pile. The next time your opponent shuffles their deck, put that card on the bottom of their deck." fontsize="14" flexiblewidth="10" />
+    </hlayout>
+    <divider/>
+    <hlayout flexibleheight="0.5">
+            <tmpro text="Frostbite card: {scrap} {health_-1}" fontsize="14" flexiblewidth="10" />
+    </hlayout> 
+</vlayout>
+					]]
+				}),
+				effect = pushTargetedEffect({
+												  desc = "Set aside a card of cost 8 or less from opponent's discard pile.",
+												  min=0,
+												  max=1,
+												  validTargets = selectLoc(loc(oppPid, discardPloc)).where(getCardCost().lte(8)),
+												  targetEffect = saveTarget("Snow Squall").seq(moveTarget(sacrificePloc))
+																.seq(createCardEffect(CryoSSBuff, loc(oppPid, buffsPloc)))
+																.seq(createCardEffect(cryomancer_frostbite_carddef(), loc(oppPid, castPloc))).seq(moveTargetWithLocAndPlayer(deckPloc, oppPid).apply(selectLoc(loc(oppPid, castPloc)).where(isCardName("cryomancer_frostbite")).take(1)))
+												  }),
+				cost = sacrificeSelfCost
+			})
+		},
+        layout = createLayout({
+            name = "Snow Squall",	
+            art = "art/t_chaotic_gust",
+			frame = "frames/wizard_cardframe",
+            xmlText=[[
+<vlayout>
+    <hlayout flexibleheight="2">
+            <icon text="{scrap}" fontsize="32" flexiblewidth="0"/>
+            <tmpro text="Put Frostbite card on top of opponent's deck.
+
+Set aside a card of cost 8{gold} or less in your opponent's discard pile. The next time your opponent shuffles their deck, put that card on the bottom of their deck." fontsize="14" flexiblewidth="10" />
+    </hlayout>
+    <divider/>
+    <hlayout flexibleheight="0.5">
+            <tmpro text="Frostbite card: {scrap} {health_-1}" fontsize="14" flexiblewidth="10" />
+    </hlayout> 
+</vlayout>
+			]]
+        }),
+        layoutPath  = "art/t_chaotic_gust",
+	})
+end	
+
+--4b Ice Floe
+function cryomancer_ice_floe_carddef()
+    return createDef(
+        {
+            id = "cryomancer_ice_floe",
+            name = "Ice Floe",
+			types = {itemType, noSacrifice},
+			cardTypeLabel = "item",
+			playLocation = castPloc,
+            acquireCost = 0,
+            abilities = {
+                createAbility(
+                    {
+                        id = "ice_floe_main",
+                        trigger = autoTrigger,
+                        cost = noCost,
+                        activations = singleActivations,
+                        effect = nullEffect()
+						
+                    }
+                )
+            },
+            layout = createLayout(
+                {
+                    name = "Ice Floe",
+                    art = "art/t_heavy_gust",
+                    frame = "frames/wizard_cardframe",
+					cost = 0,
+                    xmlText=[[
+<vlayout>
+    <box flexibleheight="10">
+        <tmpro text="Brrr...
+It's cold out here." fontstyle="italic" fontsize="20"/>
+    </box>
+    <hlayout flexibleheight="1">
+    </hlayout>
+</vlayout>
+					]],
+
+                }
+            )
+        }
+    )
+end
+
+function cryomancer_ice_floe_ab_carddef()
+	return createHeroAbilityDef({
+		id = "cryomancer_ice_floe_ab",
+		name = "Ice Floe",
+		types = { heroAbilityType },
+        abilities = {
+			createAbility({
+				id = "ice_floe_Activate",
+				trigger = uiTrigger,
+				promptType = showPrompt,
+				layout = createLayout({
+					name = "Ice Floe",
+					art = "art/t_chaotic_gust",
+					frame = "frames/wizard_cardframe",
+					xmlText=[[
+					<vlayout>
+    <hlayout flexibleheight="2">
+            <icon text="{scrap}" fontsize="32" flexiblewidth="0"/>
+            <tmpro text="Set aside a card of cost 4{gold} or less in your opponent's discard pile. The next time your opponent shuffles their deck, put that card on the bottom of their deck.
+
+Put an Ice Floe card on top of opponent's deck." fontsize="14" flexiblewidth="10" />
+    </hlayout>
+    <divider/>
+    <hlayout flexibleheight="0.5">
+            <tmpro text="Ice Floe card: Does nothing" fontsize="14" flexiblewidth="10" />
+    </hlayout> 
+</vlayout>
+					]]
+				}),
+				effect = pushTargetedEffect({
+												  desc = "Set aside a card of cost 4 or less from opponent's discard pile.",
+												  min=0,
+												  max=1,
+												  validTargets = selectLoc(loc(oppPid, discardPloc)).where(getCardCost().lte(4)),
+												  targetEffect = saveTarget("Ice Floe").seq(moveTarget(sacrificePloc))
+																.seq(createCardEffect(CryoIFBuff, loc(oppPid, buffsPloc)))
+												  })
+							.seq(createCardEffect(cryomancer_ice_floe_carddef(), loc(oppPid, castPloc))).seq(moveTargetWithLocAndPlayer(deckPloc, oppPid).apply(selectLoc(loc(oppPid, castPloc)).where(isCardName("cryomancer_ice_floe")))),
+	
+				cost = sacrificeSelfCost
+			})
+		},
+        layout = createLayout({
+            name = "Ice Floe",	
+            art = "art/t_chaotic_gust",
+			frame = "frames/wizard_cardframe",
+            xmlText=[[
+<vlayout>
+    <hlayout flexibleheight="2">
+            <icon text="{scrap}" fontsize="32" flexiblewidth="0"/>
+            <tmpro text="Set aside a card of cost 4{gold} or less in your opponent's discard pile. The next time your opponent shuffles their deck, put that card on the bottom of their deck.
+
+Put an Ice Floe card on top of opponent's deck." fontsize="14" flexiblewidth="10" />
+    </hlayout>
+    <divider/>
+    <hlayout flexibleheight="0.5">
+            <tmpro text="Ice Floe card: Does nothing" fontsize="14" flexiblewidth="10" />
+    </hlayout> 
+</vlayout>
+			]]
+        }),
+        layoutPath  = "art/t_chaotic_gust",
+	})
+end	
+
+--5b Ice Sheet
+function cryomancer_ice_sheet_ab_carddef()
+	return createHeroAbilityDef({
+		id = "cryomancer_ice_sheet",
+		name = "Ice Sheet",
+		types = { heroAbilityType },
+        abilities = {
+			createAbility({
+				id = "ice_sheet_Activate",
+				trigger = uiTrigger,
+				promptType = showPrompt,
+				layout = createLayout({
+					name = "Ice Sheet",
+					art = "art/t_chaotic_gust",
+					frame = "frames/wizard_cardframe",
+					xmlText=[[
+					<vlayout>
+    <hlayout flexibleheight="2">
+            <icon text="{scrap}" fontsize="32" flexiblewidth="0"/>
+            <tmpro text="Set aside a card of cost 6{gold} or less in your opponent's discard pile. The next time your opponent shuffles their deck, put that card on the bottom of their deck.
+
+Put an Ice Floe card on top of opponent's deck." fontsize="14" flexiblewidth="10" />
+    </hlayout>
+    <divider/>
+    <hlayout flexibleheight="0.5">
+            <tmpro text="Ice Floe card: Does nothing" fontsize="14" flexiblewidth="10" />
+    </hlayout> 
+</vlayout>
+					]]
+				}),
+				effect = pushTargetedEffect({
+												  desc = "Set aside a card of cost 6 or less from opponent's discard pile.",
+												  min=0,
+												  max=1,
+												  validTargets = selectLoc(loc(oppPid, discardPloc)).where(getCardCost().lte(6)),
+												  targetEffect = saveTarget("Ice Sheet").seq(moveTarget(sacrificePloc))
+																.seq(createCardEffect(CryoISBuff, loc(oppPid, buffsPloc)))
+												  })
+							.seq(createCardEffect(cryomancer_ice_floe_carddef(), loc(oppPid, castPloc))).seq(moveTargetWithLocAndPlayer(deckPloc, oppPid).apply(selectLoc(loc(oppPid, castPloc)).where(isCardName("cryomancer_ice_floe")))),
+				cost = sacrificeSelfCost
+			})
+		},
+        layout = createLayout({
+            name = "Ice Sheet",	
+            art = "art/t_chaotic_gust",
+			frame = "frames/wizard_cardframe",
+            xmlText=[[
+<vlayout>
+    <hlayout flexibleheight="2">
+            <icon text="{scrap}" fontsize="32" flexiblewidth="0"/>
+            <tmpro text="Set aside a card of cost 6{gold} or less in your opponent's discard pile. The next time your opponent shuffles their deck, put that card on the bottom of their deck.
+
+Put an Ice Floe card on top of opponent's deck." fontsize="14" flexiblewidth="10" />
+    </hlayout>
+    <divider/>
+    <hlayout flexibleheight="0.5">
+            <tmpro text="Ice Floe card: Does nothing" fontsize="14" flexiblewidth="10" />
+    </hlayout> 
+</vlayout>
+			]]
+        }),
+        layoutPath  = "art/t_chaotic_gust",
+	})
+end	
+
+--5c Permafrost
+
+function cryomancer_permafrost_carddef()
+
+    return createDef(
+        {
+            id = "cyromancer_permafrost",
+            name = "Permafrost",
+			types = {itemType, noSacrifice},
+			cardTypeLabel = "item",
+			playLocation = castPloc,
+            acquireCost = 0,
+            abilities = {
+                createAbility(
+                    {
+                        id = "permafrost_no_sac",
+                        trigger = autoTrigger,
+                        cost = noCost,
+                        activations = singleActivations,
+                        effect = addSlotToTarget(createSlot({ id = slotNoSacrifice, expiresArray = { neverExpiry } })).apply(selectSource())
+
+						
+                    }
+                )
+            },
+            layout = createLayout(
+                {
+                    name = "Permafrost",
+                    art = "art/t_heavy_gust",
+                    frame = "frames/wizard_cardframe",
+					cost = 0,
+                    xmlText=[[
+<vlayout>
+    <box flexibleheight="7">
+<tmpro text="This card cannot be sacrificed." fontsize="18"/>
+    </box>
+<box flexibleheight="1">
+<tmpro text="
+Winter is here." fontstyle="italic" fontsize="18"/>
+    </box>
+    <hlayout flexibleheight="1">
+    </hlayout>
+</vlayout>
+					]],
+
+                }
+            )
+        }
+    )
+end
+
+function cryomancer_permafrost_ab_carddef()
+	return createHeroAbilityDef({
+		id = "cryomancer_permafrost_ab",
+		name = "Permafrost",
+		types = { heroAbilityType },
+        abilities = {
+			createAbility({
+				id = "permafrost_Activate",
+				trigger = uiTrigger,
+				promptType = showPrompt,
+				layout = createLayout({
+					name = "Permafrost",
+					art = "art/t_chaotic_gust",
+					frame = "frames/wizard_cardframe",
+					xmlText=[[
+					<vlayout>
+    <hlayout flexibleheight="1">
+            <icon text="{scrap}" fontsize="28" flexiblewidth="0"/>
+            <tmpro text="Set aside a card of cost 4{gold} or less in your opponent's discard pile. The next time they shuffle their deck, put that card on the bottom of their deck.
+
+Put Permafrost on top of their deck." fontsize="14" flexiblewidth="1" />
+    </hlayout>
+    <divider/>
+    <hlayout flexibleheight="0.2">
+            <tmpro text="Permafrost: Does nothing. Can't be sacrificed." fontsize="12" flexiblewidth="10" />
+    </hlayout> 
+</vlayout>
+					]]
+				}),
+				effect = pushTargetedEffect({
+												  desc = "Set aside a card of cost 4 or less from opponent's discard pile.",
+												  min=0,
+												  max=1,
+												  validTargets = selectLoc(loc(oppPid, discardPloc)).where(getCardCost().lte(4)),
+												  targetEffect = saveTarget("Permafrost").seq(moveTarget(sacrificePloc))
+																.seq(createCardEffect(CryoPFBuff, loc(oppPid, buffsPloc)))
+												  })
+							.seq(createCardEffect(cryomancer_permafrost_carddef(), loc(oppPid, castPloc))).seq(moveTargetWithLocAndPlayer(deckPloc, oppPid).apply(selectLoc(loc(oppPid, castPloc)).where(isCardName("cyromancer_permafrost")))),
+	
+				cost = sacrificeSelfCost
+			})
+		},
+        layout = createLayout({
+            name = "Permafrost",	
+            art = "art/t_chaotic_gust",
+			frame = "frames/wizard_cardframe",
+            xmlText=[[
+<vlayout>
+    <hlayout flexibleheight="1">
+            <icon text="{scrap}" fontsize="28" flexiblewidth="0"/>
+            <tmpro text="Set aside a card of cost 4{gold} or less in your opponent's discard pile. The next time they shuffle their deck, put that card on the bottom of their deck.
+
+Put Permafrost on top of their deck." fontsize="13.5" flexiblewidth="1" />
+    </hlayout>
+    <divider/>
+    <hlayout flexibleheight="0.5">
+            <tmpro text="Permafrost: When discarded, including end of turn, put on bottom of deck. Can't be sacrificed." fontsize="12" flexiblewidth="10" />
+    </hlayout> 
+</vlayout>
+			]]
+        }),
+        layoutPath  = "art/t_chaotic_gust",
+	})
+end	
+
+-- End of Cryomancer cards ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 
 -- Auxiliary effects
 local function goFirstEffect()
@@ -7951,7 +10358,35 @@ choose_pyromancer_carddef(),
 			pyromancer2_flame_hood_carddef(),
 			pyromancer_after_burn_3a_carddef(),
 			pyromancer_after_burn_3b_carddef(),
-			pyromancer_after_burn_3c_carddef()
+			pyromancer_after_burn_3c_carddef(),
+			
+choose_pyromancer_carddef(),
+            cryomancer_ice_sickle_carddef(),
+			cryomancer_frostwulf_carddef(),
+			cryomancer_ice_gem_carddef(),
+			cryomancer_freeze_carddef(),
+			cryomancer_deep_freeze_carddef(),
+			cryomancer_ice_sickles_carddef(),
+			cryomancer_cold_snap_carddef(),
+			cyromancer_polarmour_carddef(),
+			cryomancer_eternal_frost_carddef(),
+			cyromancer_cryonics_carddef(),
+			cryomancer_frostbite_carddef(),
+			cryomancer_rapid_frostbiteskill_carddef(),
+			cryomancer_deep_frostbiteskill_carddef(),
+			cryomancer_instant_frostbiteskill_carddef(),
+			cryomancer_severe_frostbiteskill_carddef(),
+			cryomancer_extreme_frostbiteskill_carddef(),
+			cryomancer_freezing_fog_carddef(),
+			cryomancer_hoarfrost_carddef(),
+			cryomancer_snow_squall_carddef(),
+			cryomancer_ice_floe_ab_carddef(),
+			cryomancer_ice_floe_carddef(),
+			cryomancer_ice_sheet_ab_carddef(),
+			cryomancer_permafrost_carddef(),
+			cryomancer_permafrost_ab_carddef(),
+			cryomancer_ice_mail_carddef()
+
 --[[
 	choose_apothecary_carddef(),
 			apothecary_apprentice_potion_maker_carddef(),
@@ -8036,7 +10471,7 @@ choose_pyromancer_carddef(),
     standardSetup(
         g,
         {
-            description = "Custom Class Clash (level 12) script and classes by Aarkenell. Created 12.04.2024. Updated 08.10.24",
+            description = "Custom Class Clash (level 12) script and classes by Aarkenell. Created 12.04.2024. Updated 19.04.2025",
              playerOrder = { plid1, plid2 },
         ai = ai.CreateKillSwitchAi(createAggressiveAI(),  createHardAi2()),
         timeoutAi = createTimeoutAi(),
